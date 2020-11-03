@@ -8,54 +8,54 @@
              :data="data"
              :loading="loading"
     ></i-table>
-    <collapse>
-      <panel>
-        Data Input Channel(Data input from Logic)
-        <p slot="content"
-           v-for="item in associate.io.set">{{item}}</p>
-      </panel>
-    </collapse>
-    <collapse>
-      <panel>
-        Data Output Channel(Data output to Logic)
-        <p slot="content"
-           v-for="item in associate.io.get">{{item}}</p>
-      </panel>
-    </collapse>
-    <!--                                        <collapse>-->
-    <!--                                            <panel>-->
-    <!--                                                // Data Subscribe Channel(Logic makes the data subscribe to its own changes(running/pause/exception/finish),after the logic changes,it will trigger time to the data,and the data will change)-->
-    <!--                                                <p slot="content"-->
-    <!--                                                   v-for="item in designer_data_directory.channel.data_subscribe">{{item}}</p>-->
-    <!--                                            </panel>-->
-    <!--                                        </collapse>-->
-    <collapse>
-      <panel>
-        Data Trigger Channel(Logic subscribe to the data change(crud),after the data chanages, the event will be
-        triggered to the logic, and the logic will be executed)
-        <div slot="content">
-          <!--insert-->
-          <collapse>
-            <panel>
-              insert<p slot="content" v-for="item in associate.trigger.insert">{{item}}</p>
-            </panel>
-          </collapse>
-          <!--update-->
-          <collapse>
-            <panel>
-              update<p slot="content" v-for="item in associate.trigger.update">{{item}}</p>
-            </panel>
-          </collapse>
-          <!--delete-->
-          <collapse>
-            <panel>
-              delete<p slot="content" v-for="item in associate.trigger.delete">{{item}}</p>
-            </panel>
-          </collapse>
+<!--    <collapse>-->
+<!--      <panel>-->
+<!--        Data Input Channel(Data input from Logic)-->
+<!--        <p slot="content"-->
+<!--           v-for="item in associate.io.set">{{item}}</p>-->
+<!--      </panel>-->
+<!--    </collapse>-->
+<!--    <collapse>-->
+<!--      <panel>-->
+<!--        Data Output Channel(Data output to Logic)-->
+<!--        <p slot="content"-->
+<!--           v-for="item in associate.io.get">{{item}}</p>-->
+<!--      </panel>-->
+<!--    </collapse>-->
+<!--    &lt;!&ndash;                                        <collapse>&ndash;&gt;-->
+<!--    &lt;!&ndash;                                            <panel>&ndash;&gt;-->
+<!--    &lt;!&ndash;                                                // Data Subscribe Channel(Logic makes the data subscribe to its own changes(running/pause/exception/finish),after the logic changes,it will trigger time to the data,and the data will change)&ndash;&gt;-->
+<!--    &lt;!&ndash;                                                <p slot="content"&ndash;&gt;-->
+<!--    &lt;!&ndash;                                                   v-for="item in designer_data_directory.channel.data_subscribe">{{item}}</p>&ndash;&gt;-->
+<!--    &lt;!&ndash;                                            </panel>&ndash;&gt;-->
+<!--    &lt;!&ndash;                                        </collapse>&ndash;&gt;-->
+<!--    <collapse>-->
+<!--      <panel>-->
+<!--        Data Trigger Channel(Logic subscribe to the data change(crud),after the data chanages, the event will be-->
+<!--        triggered to the logic, and the logic will be executed)-->
+<!--        <div slot="content">-->
+<!--          &lt;!&ndash;insert&ndash;&gt;-->
+<!--          <collapse>-->
+<!--            <panel>-->
+<!--              insert<p slot="content" v-for="item in associate.trigger.insert">{{item}}</p>-->
+<!--            </panel>-->
+<!--          </collapse>-->
+<!--          &lt;!&ndash;update&ndash;&gt;-->
+<!--          <collapse>-->
+<!--            <panel>-->
+<!--              update<p slot="content" v-for="item in associate.trigger.update">{{item}}</p>-->
+<!--            </panel>-->
+<!--          </collapse>-->
+<!--          &lt;!&ndash;delete&ndash;&gt;-->
+<!--          <collapse>-->
+<!--            <panel>-->
+<!--              delete<p slot="content" v-for="item in associate.trigger.delete">{{item}}</p>-->
+<!--            </panel>-->
+<!--          </collapse>-->
 
-        </div>
-      </panel>
-    </collapse>
+<!--        </div>-->
+<!--      </panel>-->
+<!--    </collapse>-->
 
   </div>
 </template>
@@ -67,7 +67,7 @@
     import designer_data_logic_io from "../../designer_data_logic_io";
     import designer_data_logic_trigger from "../../designer_data_logic_trigger";
 
-    let column_width = component_table.calculate_table_column_width(true, this, 3);
+    let column_width = 0.2;
 
     export default {
         name: "DesignerDataStruct",
@@ -182,8 +182,9 @@
             },
         },
         async created() {
+            column_width = component_table.calculate_table_column_width(true, this, 3);
             await this.init_table();
-            await this.init_associate();
+            // await this.init_associate();
         }
     }
     // TODO improvement: increase the multi data_struct flow

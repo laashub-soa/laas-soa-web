@@ -16,8 +16,8 @@
         </Breadcrumb>
       </span>
     </div>
-        <div style="height: 93vh;border: 1px solid #d6d6d6;">
-            <span style="height:93vh;">
+        <div style="height: 88vh;border: 1px solid #d6d6d6;">
+            <span >
                 <Split v-model="split">
                     <div slot="left">
                       <Directory @click-directory="OnClickDirectory" v-show="menu_active_name==item" :service_type="item"
@@ -40,8 +40,8 @@
                               <DesignerDataStruct v-if="item.type=='data'"
                                                   :directory_id="item.directory_id"
                                                   :directory_name="item.name" :split_value="split"></DesignerDataStruct>
-                              <DesignerLogicData v-if="item.type=='logic'" :directory_id="item.directory_id"
-                                                 :directory_name="item.name"></DesignerLogicData>
+<!--                              <DesignerLogicData v-if="item.type=='logic'" :directory_id="item.directory_id"-->
+<!--                                                 :directory_name="item.name"></DesignerLogicData>-->
 
                             </TabPane>
                         </Tabs>
@@ -54,7 +54,7 @@
 
 <script>
     import Directory from '@/components/directory/Directory.vue'
-    // import DesignerDataStruct from "./designer_data/designer_data_struct/DesignerDataStruct";
+    import DesignerDataStruct from "./designer_data/designer_data_struct/DesignerDataStruct";
     import {Breadcrumb, MenuItem, Tabs} from "view-design";
     // import DesignerLogicData from "./designer_logic/designer_logic_data/DesignerLogicData";
 
@@ -63,7 +63,7 @@
         components: {
             // DesignerLogicData,
             Directory,
-            // DesignerDataStruct,
+            DesignerDataStruct,
             Tabs,
             Breadcrumb,
             MenuItem

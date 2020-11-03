@@ -22,7 +22,7 @@ function cancel_opt_data(component) {
 
 function calculate_table_column_width(is_in_designer, component, column_number) {
   const window_width = document.documentElement.clientWidth;
-  const right_window_width = window_width * (1 - component.split);
+  const right_window_width = window_width * (1 - component.split_value);
   let nav_area_width = nav_area_width_designer;
   let table_column_operation_status_width_temp = 0;
   if (!is_in_designer) {
