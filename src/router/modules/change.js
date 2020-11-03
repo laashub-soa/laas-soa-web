@@ -47,7 +47,7 @@ const changeRouter = {
           meta: {title: '项目构建'}
         },
         {
-          path: 'project_build',
+          path: 'project_deploy',
           name: '项目部署',
           component: () => import('@/views/nested/menu1/index'),
           meta: {title: '项目部署'}
