@@ -1,14 +1,14 @@
 import axios from "axios";
 
 async function select_(data_struct) {
-  let net_request_result = await axios.post("/rest/logic/data/select", data_struct);
+  let net_request_result = await axios.post("/rest/business/data/select", data_struct);
   if (!net_request_result || !net_request_result.status || net_request_result.status != 200 || !net_request_result.data) return;
   return net_request_result.data;
 }
 
 
 async function update_(data_struct) {
-  let net_request_result = await axios.post("/rest/logic/data/update", data_struct);
+  let net_request_result = await axios.post("/rest/business/data/update", data_struct);
   if (!net_request_result || !net_request_result.status || net_request_result.status != 200 || !net_request_result.data) return;
   return net_request_result.data;
 }

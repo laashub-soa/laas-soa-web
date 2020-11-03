@@ -25,6 +25,12 @@ const operateRouter = {
       name: '操作台',
       meta: {title: '操作台'},
     },
+    {
+      path: 'executor',
+      component: () => import('@/views/nested/menu1/index'), // Parent router-view
+      name: '执行器',
+      meta: {title: '执行器'},
+    },
   ]
 }
 

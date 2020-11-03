@@ -1,14 +1,25 @@
 import axios from "axios";
 
+function reset_service_type(service_type) {
+  switch (service_type) {
+    case "data":
+      return "cmdb"
+    case "logic":
+      return "business"
+  }
+}
+
 async function select_(service_type, directory) {
-  let net_request_result = await axios.post("/rest/" + service_type + "/directory/select", directory);
+  service_type = reset_service_type(service_type)
+  let net_request_result = await axios.post("/rest/operate/" + service_type + "/directory/select", directory);
   if (!net_request_result || !net_request_result.status || net_request_result.status != 200 || !net_request_result.data) return;
   return net_request_result.data;
 }
 
 
 async function select_tree(service_type,) {
-  let net_request_result = await axios.post("/rest/" + service_type + "/directory/select", {});
+  service_type = reset_service_type(service_type)
+  let net_request_result = await axios.post("/rest/operate/" + service_type + "/directory/select", {});
   if (!net_request_result || !net_request_result.status || net_request_result.status != 200 || !net_request_result.data) return;
   let original_tree_list = net_request_result.data;
   // adapter list to tree
@@ -45,19 +56,22 @@ async function select_tree(service_type,) {
 }
 
 async function insert_(service_type, data_directory) {
-  let net_request_result = await axios.post("/rest/" + service_type + "/directory/insert", data_directory);
+  service_type = reset_service_type(service_type)
+  let net_request_result = await axios.post("/rest/operate/" + service_type + "/directory/insert", data_directory);
   if (!net_request_result || !net_request_result.status || net_request_result.status != 200 || !net_request_result.data) return;
   return net_request_result.data;
 }
 
 async function update_(service_type, data_directory) {
-  let net_request_result = await axios.post("/rest/" + service_type + "/directory/update", data_directory);
+  service_type = reset_service_type(service_type)
+  let net_request_result = await axios.post("/rest/operate/" + service_type + "/directory/update", data_directory);
   if (!net_request_result || !net_request_result.status || net_request_result.status != 200 || !net_request_result.data) return;
   return net_request_result.data;
 }
 
 async function delete_(service_type, data_directory) {
-  let net_request_result = await axios.post("/rest/" + service_type + "/directory/delete", data_directory);
+  service_type = reset_service_type(service_type)
+  let net_request_result = await axios.post("/rest/operate/" + service_type + "/directory/delete", data_directory);
   if (!net_request_result || !net_request_result.status || net_request_result.status != 200 || !net_request_result.data) return;
   return net_request_result.data;
 }
