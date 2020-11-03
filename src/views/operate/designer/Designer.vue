@@ -1,5 +1,5 @@
 <template>
-  <div style="height: 100vh">
+  <div>
     <div>
       <Menu style="font-size: 10px" mode="horizontal" theme="light" :active-name="menu_active_name"
             @on-select="on_menu_select">
@@ -15,59 +15,58 @@
             </BreadcrumbItem>
         </Breadcrumb>
       </span>
-      <span style="margin-left: 30px;font-size: 22px;">
-                id: {{directory.cur_id}}
-      </span>
     </div>
-    <div style="height: 93vh;border: 1px solid #d6d6d6;">
-        <span style="height:93vh;">
-            <Split v-model="split">
-                <div slot="left">
-                  <Directory @click-directory="OnClickDirectory" v-show="menu_active_name==item" :service_type="item"
-                             v-for="item in service_type_list"></Directory>
-                </div>
-                <div slot="right">
-                    <Tabs v-model="tab_pane_cur" type="card"
-                          @on-tab-remove="handleTabRemove"
-                          @on-click="onClickTab" :animated="false"
-                          style="user-select:none;"
-                          closable
-                          :before-remove='beforeRemove'
-                    >
-
-                        <TabPane v-if="item.visible" :label="item.label"
-                                 v-for="(item,index) in tab_pane"
-                                 :icon="item.icon"
-                                 :key="item.name"
+        <div style="height: 93vh;border: 1px solid #d6d6d6;">
+            <span style="height:93vh;">
+                <Split v-model="split">
+                    <div slot="left">
+                      <Directory @click-directory="OnClickDirectory" v-show="menu_active_name==item" :service_type="item"
+                                 v-for="item in service_type_list"></Directory>
+                    </div>
+                    <div slot="right">
+                        <Tabs v-model="tab_pane_cur" type="card"
+                              @on-tab-remove="handleTabRemove"
+                              @on-click="onClickTab" :animated="false"
+                              style="user-select:none;"
+                              closable
+                              :before-remove='beforeRemove'
                         >
-                          <DesignerDataStruct v-if="item.type=='data'"
-                                              :directory_id="item.directory_id"
-                                              :directory_name="item.name" :split_value="split"></DesignerDataStruct>
-                          <DesignerLogicData v-if="item.type=='logic'" :directory_id="item.directory_id"
-                                             :directory_name="item.name"></DesignerLogicData>
 
-                        </TabPane>
-                    </Tabs>
-                </div>
-            </Split>
-        </span>
-    </div>
+                            <TabPane v-if="item.visible" :label="item.label"
+                                     v-for="(item,index) in tab_pane"
+                                     :icon="item.icon"
+                                     :key="item.name"
+                            >
+                              <DesignerDataStruct v-if="item.type=='data'"
+                                                  :directory_id="item.directory_id"
+                                                  :directory_name="item.name" :split_value="split"></DesignerDataStruct>
+                              <DesignerLogicData v-if="item.type=='logic'" :directory_id="item.directory_id"
+                                                 :directory_name="item.name"></DesignerLogicData>
+
+                            </TabPane>
+                        </Tabs>
+                    </div>
+                </Split>
+            </span>
+        </div>
   </div>
 </template>
 
 <script>
     import Directory from '@/components/directory/Directory.vue'
-    import DesignerDataStruct from "./designer_data/designer_data_struct/DesignerDataStruct";
-    import {Tabs} from "view-design";
-    import DesignerLogicData from "./designer_logic/designer_logic_data/DesignerLogicData";
+    // import DesignerDataStruct from "./designer_data/designer_data_struct/DesignerDataStruct";
+    import {Breadcrumb, MenuItem, Tabs} from "view-design";
+    // import DesignerLogicData from "./designer_logic/designer_logic_data/DesignerLogicData";
 
     export default {
         name: "Designer",
         components: {
-            DesignerLogicData,
+            // DesignerLogicData,
             Directory,
-            DesignerDataStruct,
-            Tabs
+            // DesignerDataStruct,
+            Tabs,
+            Breadcrumb,
+            MenuItem
         },
         data() {
             return {
@@ -185,11 +184,11 @@
             },
         },
         created() {
-            // reshow the memory
-            const last_menu_selected = localStorage.getItem('designer_menu_selected');
-            if (['data', 'logic'].indexOf(last_menu_selected) > -1) {
-                this._data.menu_active_name = last_menu_selected;
-            }
+            // // reshow the memory
+            // const last_menu_selected = localStorage.getItem('designer_menu_selected');
+            // if (['data', 'logic'].indexOf(last_menu_selected) > -1) {
+            //     this._data.menu_active_name = last_menu_selected;
+            // }
 
         },
     }
