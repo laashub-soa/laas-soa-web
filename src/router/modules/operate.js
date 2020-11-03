@@ -13,16 +13,16 @@ const operateRouter = {
   },
   children: [
     {
-      path: 'cmdb',
-      component: () => import('@/views/nested/menu1/index'), // Parent router-view
-      name: 'CMDB',
-      meta: {title: 'CMDB'},
+      path: 'desinger',
+      component: () => import('@/views/operate/designer/Designer'), // Parent router-view
+      name: '设计器',
+      meta: {title: '设计器'},
     },
     {
-      path: '业务',
+      path: '操作台',
       component: () => import('@/views/nested/menu1/index'), // Parent router-view
-      name: 'business',
-      meta: {title: '业务'},
+      name: 'operate',
+      meta: {title: '操作台'},
     },
   ]
 }

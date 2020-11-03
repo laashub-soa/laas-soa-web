@@ -1,2 +1,1 @@
-# laashub-soa-web
-laashub-soa-web
+# [ laas-soa](https://github.com/laashub-soa/laas-soa)
