@@ -14,14 +14,15 @@ const operateRouter = {
   children: [
     {
       path: 'desinger',
+
       component: () => import('@/views/operate/designer/Designer'), // Parent router-view
       name: '设计器',
       meta: {title: '设计器'},
     },
     {
-      path: '操作台',
+      path: 'operate',
       component: () => import('@/views/nested/menu1/index'), // Parent router-view
-      name: 'operate',
+      name: '操作台',
       meta: {title: '操作台'},
     },
   ]
