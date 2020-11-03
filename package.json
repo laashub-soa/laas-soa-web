@@ -1,8 +1,8 @@
 {
-  "name": "vue-element-admin",
-  "version": "4.4.0",
-  "description": "A magical vue admin. An out-of-box UI solution for enterprise applications. Newest development stack of vue. Lots of awesome features",
-  "author": "Pan <panfree23@gmail.com>",
+  "name": "laas-soa-web",
+  "version": "0.0.1",
+  "description": "web for laas-soa",
+  "author": "tristan-tsl <tanshilinmail@gmail.com>",
   "scripts": {
     "dev": "vue-cli-service serve",
     "lint": "eslint --ext .js,.vue src",
@@ -77,7 +77,7 @@
     "last 2 versions"
   ],
   "bugs": {
-    "url": "https://github.com/PanJiaChen/vue-element-admin/issues"
+    "url": "https://github.com/laashub-soa/laas-soa-web/issues"
   },
   "engines": {
     "node": ">=8.9",
@@ -92,12 +92,9 @@
     "admin-template",
     "management-system"
   ],
-  "license": "MIT",
+  "license": "Apache",
   "lint-staged": {
-    "src/**/*.{js,vue}": [
-      "eslint --fix",
-      "git add"
-    ]
+
   },
   "husky": {
     "hooks": {
@@ -106,6 +103,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PanJiaChen/vue-element-admin.git"
+    "url": "git+https://github.com/laashub-soa/laas-soa-web.git"
   }
 }
