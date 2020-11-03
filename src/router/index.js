@@ -1,16 +1,16 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
-Vue.use(Router)
-
 /* Layout */
 import Layout from '@/layout'
-
 /* Router Modules */
-import componentsRouter from './modules/components'
-import chartsRouter from './modules/charts'
-import tableRouter from './modules/table'
-import nestedRouter from './modules/nested'
+import changeRouter from './modules/change'
+import operateRouter from './modules/operate'
+import monitorRouter from './modules/monitor'
+import securityRouter from './modules/security'
+import chaosRouter from './modules/chaos'
+import developRouter from './modules/develop'
+
+Vue.use(Router)
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -78,8 +78,8 @@ export const constantRoutes = [
       {
         path: 'dashboard',
         component: () => import('@/views/dashboard/index'),
-        name: 'Dashboard',
-        meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
+        name: '总览',
+        meta: {title: '总览', icon: 'dashboard', affix: true}
       }
     ]
   }
@@ -187,7 +187,12 @@ export const asyncRoutes = [
   /** when your routing map is too long, you can split it into small modules **/
   // componentsRouter,
   // chartsRouter,
-  nestedRouter,
+  operateRouter,
+  changeRouter,
+  monitorRouter,
+  securityRouter,
+  chaosRouter,
+  developRouter,
   // tableRouter,
 
   // {
@@ -384,12 +389,12 @@ export const asyncRoutes = [
   // },
 
   // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true }
+  {path: '*', redirect: '/404', hidden: true}
 ]
 
 const createRouter = () => new Router({
   // mode: 'history', // require service support
-  scrollBehavior: () => ({ y: 0 }),
+  scrollBehavior: () => ({y: 0}),
   routes: constantRoutes
 })
 
