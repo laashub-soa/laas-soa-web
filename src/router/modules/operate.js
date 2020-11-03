@@ -21,7 +21,7 @@ const operateRouter = {
     },
     {
       path: 'operate',
-      component: () => import('@/views/nested/menu1/index'), // Parent router-view
+      component: () => import('@/views/operate/operate/Dashboard'), // Parent router-view
       name: '操作台',
       meta: {title: '操作台'},
     },

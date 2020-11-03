@@ -83,10 +83,10 @@
 
 <script>
     import {Tree, VueTreeList} from 'vue-tree-list'
-    import DirectoryDescription from "@/component/directory/DirectoryDescription";
+    import DirectoryDescription from "@/components/directory/DirectoryDescription";
     import designer_data_struct from "../../designer/designer_data/designer_data_struct/designer_data_struct";
     import designer_data_data from "./data_board_data";
-    import component_table from "@/component/table";
+    import component_table from "@/components/table";
     import designer_data_logic_trigger from "../../designer/designer_data_logic_trigger";
     import engine from "./engine";
 
@@ -222,7 +222,7 @@
                     this._data.page.total = resp_data['page_total'];
                     this._data.data = resp_data['data'];
                     this.$Message.success('query data_struct success');
-                    await this.init_data_logic_trigger_status();
+                    // await this.init_data_logic_trigger_status();
                     // status column
                     if (this._data.columns.length < this._data.column_keys.length + 2)
                         this._data.columns.push(component_table.table_column_operation_status(this));
@@ -266,7 +266,7 @@
                     if (!await this.associate_data_logic_event(component, data_data, 'insert')) return;
                     const insert_result = await designer_data_data.insert_(data_data);
                     component.$Message.success('insert data data success');
-                    await component.trigger_engine(component, 'insert', insert_result);
+                    // await component.trigger_engine(component, 'insert', insert_result);
                     await component.init_table();
                 } catch (e) {
                     console.log(e.response.data);
@@ -298,15 +298,16 @@
                 }
             },
             async associate_data_logic_event(component, data_data, data_event_type) {
-                if (component.associate.trigger[component.opt_name].length < 1) return true; // data event without logic
+                return true;
+                // if (component.associate.trigger[component.opt_name].length < 1) return true; // data event without logic
 
                 component._data.data_event_2_logic.data = [];
-                for (const item of component._data.associate.trigger[data_event_type]) {
-                    component._data.data_event_2_logic.data.push({
-                        "value": item,
-                        "label": item,
-                    });
-                }
+                // for (const item of component._data.associate.trigger[data_event_type]) {
+                //     component._data.data_event_2_logic.data.push({
+                //         "value": item,
+                //         "label": item,
+                //     });
+                // }
                 const result = await new Promise(function (resolve, reject) {
                     component.$Modal.confirm({
                         onOk: () => {
@@ -353,7 +354,7 @@
                     const logic_func_name_arr = logic_func_name.split(":");
                     request_data["logic_id"] = logic_func_name_arr[0];
                     request_data["func_name"] = logic_func_name_arr[1];
-                    await engine.trigger(request_data);
+                    // await engine.trigger(request_data);
                     component.$Message.success('trigger_engine success');
                 } catch (e) {
                     console.log(e.response.data);
@@ -418,7 +419,7 @@ data_event:1(1):insert:(time)
                     }
                     tree_list.push(tree_level_data_event);
                     component._data.data_status_details_tree = new Tree(tree_list);
-                    component.$Message.success('select engine data logic trigger status details status success');
+                    // component.$Message.success('select engine data logic trigger status details status success');
                 } catch (e) {
                     console.log(e.response.data);
                     component.$Message.error(e.response.data);
@@ -433,7 +434,7 @@ data_event:1(1):insert:(time)
                     for (const item of net_request_result) {
                         this._data.data_status_details.log_list.push(item["log"]);
                     }
-                    component.$Message.success('select engine data logic trigger status details log success');
+                    // component.$Message.success('select engine data logic trigger status details log success');
                 } catch (e) {
                     console.log(e.response.data);
                     component.$Message.error(e.response.data);
@@ -444,7 +445,7 @@ data_event:1(1):insert:(time)
             },
         },
         async created() {
-            await this.init_associate();
+            // await this.init_associate();
             await this.init_table_column();
             await this.init_table();
         }

@@ -1,5 +1,5 @@
 <template>
-  <div style="height: 100vh">
+  <div>
     <div>
 <!--      <Menu style="font-size: 10px" mode="horizontal" theme="light" :active-name="menu_active_name"-->
 <!--            @on-select="function(name){menu_active_name = name}">-->
@@ -19,7 +19,7 @@
                 id: {{directory.cur_id}}
       </span>
     </div>
-    <div style="height: 96vh;border: 1px solid #d6d6d6;">
+    <div style="height: 88vh;border: 1px solid #d6d6d6;">
         <span>
             <Split v-model="split">
                 <div slot="left">
@@ -57,7 +57,7 @@
 </template>
 
 <script>
-    import Directory from '@/component/directory/Directory.vue'
+    import Directory from '@/components/directory/Directory.vue'
     import DesignerDataData from "./DataBoardData";
     import {Tabs} from "view-design";
     import DesignerLogicData from "../../designer/designer_logic/designer_logic_data/DesignerLogicData";
