@@ -5,22 +5,23 @@
             @on-select="on_menu_select">
         <MenuItem :name="item" width="40px" style="user-select:none;text-transform:uppercase;"
                   v-for="item in service_type_list">
-          {{item}}
+          {{service_type_name_list[item]}}
         </MenuItem>
       </Menu>
-      <span>
-        <Breadcrumb>
-            <BreadcrumbItem v-for="item in breadcrumb.list">
-                {{item}}
-            </BreadcrumbItem>
-        </Breadcrumb>
-      </span>
+<!--      <span>-->
+<!--        <Breadcrumb>-->
+<!--            <BreadcrumbItem v-for="item in breadcrumb.list">-->
+<!--                {{item}}-->
+<!--            </BreadcrumbItem>-->
+<!--        </Breadcrumb>-->
+<!--      </span>-->
     </div>
-        <div style="height: 88vh;border: 1px solid #d6d6d6;">
-            <span >
+    <div style="height: 88vh;border: 1px solid #d6d6d6;">
+            <span>
                 <Split v-model="split">
                     <div slot="left">
-                      <Directory @click-directory="OnClickDirectory" v-show="menu_active_name==item" :service_type="item"
+                      <Directory @click-directory="OnClickDirectory" v-show="menu_active_name==item"
+                                 :service_type="item"
                                  v-for="item in service_type_list"></Directory>
                     </div>
                     <div slot="right">
@@ -48,7 +49,7 @@
                     </div>
                 </Split>
             </span>
-        </div>
+    </div>
   </div>
 </template>
 
@@ -72,6 +73,7 @@
             return {
                 // service type list
                 service_type_list: ['data', 'logic'],
+                service_type_name_list: {'data': '数据模型', 'logic': '业务脚本'},
                 // menu
                 menu_active_name: "data",
                 // breadcrumb
@@ -184,11 +186,11 @@
             },
         },
         created() {
-            // // reshow the memory
-            // const last_menu_selected = localStorage.getItem('designer_menu_selected');
-            // if (['data', 'logic'].indexOf(last_menu_selected) > -1) {
-            //     this._data.menu_active_name = last_menu_selected;
-            // }
+            // reshow the memory
+            const last_menu_selected = localStorage.getItem('designer_menu_selected');
+            if (['data', 'logic'].indexOf(last_menu_selected) > -1) {
+                this._data.menu_active_name = last_menu_selected;
+            }
 
         },
     }

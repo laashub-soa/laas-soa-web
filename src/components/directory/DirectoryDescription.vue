@@ -19,8 +19,8 @@
 <script>
     import directory from "./directory";
 
-    const update_description_btn_str = "UPDATE";
-    const save_description_btn_str = "SAVE";
+    const update_description_btn_str = "修改";
+    const save_description_btn_str = "保存";
 
     export default {
         name: "DirectoryDescription",
