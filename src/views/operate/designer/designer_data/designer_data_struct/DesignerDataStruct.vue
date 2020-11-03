@@ -3,7 +3,7 @@
     <DirectoryDescription :directory_id="directory_id"></DirectoryDescription>
     <Button @click="init_table">Refresh</Button>
     <i-button @click="init_insert_">Add</i-button>
-    <span style="user-select: text">table_prefix_name: designer_data_data_</span>
+    <span style="user-select: text">table_name: designer_data_data_{{directory_id}}</span>
     <i-table stripe border :columns="columns"
              :data="data"
              :loading="loading"
