@@ -40,8 +40,8 @@
                               <DesignerDataStruct v-if="item.type=='data'"
                                                   :directory_id="item.directory_id"
                                                   :directory_name="item.name" :split_value="split"></DesignerDataStruct>
-<!--                              <DesignerLogicData v-if="item.type=='logic'" :directory_id="item.directory_id"-->
-<!--                                                 :directory_name="item.name"></DesignerLogicData>-->
+                              <DesignerLogicData v-if="item.type=='logic'" :directory_id="item.directory_id"
+                                                 :directory_name="item.name"></DesignerLogicData>
 
                             </TabPane>
                         </Tabs>
@@ -56,12 +56,12 @@
     import Directory from '@/components/directory/Directory.vue'
     import DesignerDataStruct from "./designer_data/designer_data_struct/DesignerDataStruct";
     import {Breadcrumb, MenuItem, Tabs} from "view-design";
-    // import DesignerLogicData from "./designer_logic/designer_logic_data/DesignerLogicData";
+    import DesignerLogicData from "./designer_logic/designer_logic_data/DesignerLogicData";
 
     export default {
         name: "Designer",
         components: {
-            // DesignerLogicData,
+            DesignerLogicData,
             Directory,
             DesignerDataStruct,
             Tabs,
