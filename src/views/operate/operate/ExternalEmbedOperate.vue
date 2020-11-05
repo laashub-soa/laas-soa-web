@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="border:1px solid #dcdfe6;margin-top: 50px">
     <i-form :label-width=200>
       <row v-for="(data_struct_value, data_struct_key) in data_struct">
         <form-item :label="data_struct_value" :prop="data_struct_key">

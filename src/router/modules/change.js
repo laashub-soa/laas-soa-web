@@ -5,23 +5,22 @@ import Layout from '@/layout'
 const changeRouter = {
   path: '/change',
   component: Layout,
-  redirect: '/change/process/audit',
+  redirect: '/change/workflow/audit',
   name: '变更领域',
   meta: {
     title: '变更领域',
-    // icon: 'nested'
   },
   children: [
     {
-      path: 'process',
-      component: () => import('@/views/nested/menu1/index'), // Parent router-view
+      path: '/change/workflow',
+      component: () => import('@/views/change/index'),
       name: '流程',
       meta: {title: '流程'},
-      redirect: '/change/process/audit',
+      redirect: '/change/workflow/audit',
       children: [
         {
-          path: 'audit',
-          component: () => import('@/views/nested/menu1/index'),
+          path: '/change/workflow/audit',
+          component: () => import('@/views/change/workflow/Audit'),
           name: '审批',
           meta: {title: '审批'}
         },
@@ -50,7 +49,7 @@ const changeRouter = {
             {
               path: '/change/change/develop/project_requirements',
               name: '项目需求',
-              component: () => import('@/views/change/change/develop/project_requirements/project_requirements'),
+              component: () => import('@/views/change/change/develop/project_requirements/ProjectRequirements'),
               meta: {title: '项目需求'}
             },
             // {

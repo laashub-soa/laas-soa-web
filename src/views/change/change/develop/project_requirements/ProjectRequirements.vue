@@ -1,8 +1,9 @@
 <template>
   <div>
     <router-view/>
-    <div style="height: 150px">
-
+    <WorkflowWrapper></WorkflowWrapper>
+    <div>
+      <!--前置流程区域-->
     </div>
     <ExternalEmbedOperate
       :directory_id=directory_id
@@ -15,11 +16,13 @@
 
 <script>
     import ExternalEmbedOperate from "@/views/operate/operate/ExternalEmbedOperate";
+    import WorkflowWrapper from "@/views/change/workflow/Wrapper";
 
     export default {
-        name: "project_requirements",
+        name: "ProjectRequirements",
         components: {
             ExternalEmbedOperate,
+            WorkflowWrapper,
         },
         data() {
             return {
