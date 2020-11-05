@@ -166,7 +166,7 @@
                         this._data.loading = false;
                         return;
                     }
-                    const column_width = component_table.calculate_table_column_width(false, this, data_struct_list.length);
+                    const column_width = component_table.calculate_table_column_width(false, this, data_struct_list.length+1);
                     // basic column
                     for (const item of data_struct_list) {
                         const code = item["code"];
@@ -224,8 +224,8 @@
                     this.$Message.success('query data_struct success');
                     // await this.init_data_logic_trigger_status();
                     // status column
-                    if (this._data.columns.length < this._data.column_keys.length + 2)
-                        this._data.columns.push(component_table.table_column_operation_status(this));
+                    // if (this._data.columns.length < this._data.column_keys.length + 2)
+                    //     this._data.columns.push(component_table.table_column_operation_status(this));
                 } catch (e) {
                     console.log(e);
                     this.$Message.error(e.response.data);
@@ -454,6 +454,33 @@ data_event:1(1):insert:(time)
     // TODO improvement: insert/update/delete data operation when across the multi data, so it also need refactor the backend code
 </script>
 
-<style scoped>
+<style>
+  @import '~view-design/dist/styles/iview.css';
 
+  .ivu-split-trigger-vertical {
+    width: 2px;
+    background: #d6d6d6;
+  }
+
+  .ivu-split-trigger {
+    border: 0px;
+  }
+
+  .ivu-tabs-bar {
+    margin-bottom: 1px;
+  }
+
+  .ivu-menu-vertical .ivu-menu-item, .ivu-menu-vertical .ivu-menu-submenu-title {
+    padding: 0 0px;
+  }
+
+  .ivu-breadcrumb {
+    font-size: 22px;
+    float: left;
+  }
+
+  .ivu-menu-horizontal {
+    height: 30px;
+    line-height: 30px;
+  }
 </style>

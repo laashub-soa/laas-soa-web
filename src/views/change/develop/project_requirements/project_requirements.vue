@@ -1,8 +1,8 @@
 <template>
   <div>
-    <router-view />
+    <router-view/>
     <DataBoardData
-      directory_id="10"
+      :directory_id=directory_id
       directory_name="project_requirements" split_value="0"></DataBoardData>
   </div>
 </template>
@@ -15,6 +15,11 @@
         components: {
             DataBoardData,
         },
+        data() {
+            return {
+                directory_id: 10,
+            }
+        }
     }
 </script>
 
