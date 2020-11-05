@@ -50,7 +50,7 @@ const changeRouter = {
             {
               path: '/change/change/develop/project_requirements',
               name: '项目需求',
-              component: () => import('@/views/change/develop/project_requirements/project_requirements'),
+              component: () => import('@/views/change/change/develop/project_requirements/project_requirements'),
               meta: {title: '项目需求'}
             },
             // {
