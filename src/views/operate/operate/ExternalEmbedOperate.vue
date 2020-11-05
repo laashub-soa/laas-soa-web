@@ -7,7 +7,7 @@
         </form-item>
       </row>
       <row>
-        <i-button type="primary" long @click="" v-if="change_callback==null">提交</i-button>
+        <i-button type="primary" long @click="change_data_data" v-if="change_callback==null">提交</i-button>
       </row>
     </i-form>
   </div>
@@ -77,6 +77,37 @@
                     this.$Message.error(e.response.data);
                 }
             },
+            async change_data_data() { // 变更
+                // 通过判断 data_id是否为空判断是新增数据还是修改数据
+                this.data_data['did'] = this.directory_id;
+                const component = this;
+                async function insert_data() { // 插入数据
+                    try {
+                        const insert_result = await designer_data_data.insert_(component.data_data);
+                        component.$Message.success('insert data data success');
+                    } catch (e) {
+                        console.log(e.response.data);
+                        component.$Message.error(e.response.data);
+                    }
+                }
+
+                async function update_data() { // 修改数据
+                    try {
+                        await designer_data_data.update_(component.data_data);
+                        component.$Message.success('update data data success');
+                    } catch (e) {
+                        console.log(e.response.data);
+                        component.$Message.error(e.response.data);
+                    }
+                }
+
+                if (this.data_id == null) {
+                    await insert_data();
+                } else {
+                    await update_data();
+                }
+                await this.init_data_data();
+            }
         },
         async created() {
             await this.init_data_struct();
