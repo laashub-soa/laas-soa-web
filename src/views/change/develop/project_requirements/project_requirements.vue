@@ -1,28 +1,63 @@
 <template>
   <div>
     <router-view/>
-    <DataBoardData
+    <div style="height: 150px">
+      前置流程区域
+    </div>
+    <ExternalEmbedOperate
       :directory_id=directory_id
-      directory_name="project_requirements" split_value="0"></DataBoardData>
+      :directory_name=directory_name
+      :data_id=data_id
+    ></ExternalEmbedOperate>
   </div>
+
 </template>
 
 <script>
-    import DataBoardData from "@/views/operate/operate/databoard/DataBoardData";
+    import ExternalEmbedOperate from "@/views/operate/operate/ExternalEmbedOperate";
 
     export default {
         name: "project_requirements",
         components: {
-            DataBoardData,
+            ExternalEmbedOperate,
         },
         data() {
             return {
                 directory_id: 10,
+                directory_name: "",
+                data_id: 1,
             }
         }
     }
 </script>
 
-<style scoped>
+<style>
+  @import '~view-design/dist/styles/iview.css';
 
+  .ivu-split-trigger-vertical {
+    width: 2px;
+    background: #d6d6d6;
+  }
+
+  .ivu-split-trigger {
+    border: 0px;
+  }
+
+  .ivu-tabs-bar {
+    margin-bottom: 1px;
+  }
+
+  .ivu-menu-vertical .ivu-menu-item, .ivu-menu-vertical .ivu-menu-submenu-title {
+    padding: 0 0px;
+  }
+
+  .ivu-breadcrumb {
+    font-size: 22px;
+    float: left;
+  }
+
+  .ivu-menu-horizontal {
+    height: 30px;
+    line-height: 30px;
+  }
 </style>
