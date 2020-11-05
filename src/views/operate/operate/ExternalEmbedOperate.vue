@@ -28,7 +28,7 @@
                 default: null,
                 type: String,
             },
-            data_id: { // 数据id
+            input_data_id: { // 数据id
                 default: null,
                 type: Number,
             },
@@ -41,12 +41,13 @@
             return {
                 data_struct: {}, // 数据结构 {key: value}
                 data_data: {}, // 数据数据 {key: value}
+                data_id: null,
             }
         },
         methods: {
             async init_data_struct() { // 初始化数据结构
                 try {
-                    let new_data_struct = {}
+                    let new_data_struct = {};
                     const data_struct_list = await designer_data_struct.select_({'did': this.directory_id});
                     if (data_struct_list < 1) {
                         return;
@@ -81,14 +82,17 @@
                 // 通过判断 data_id是否为空判断是新增数据还是修改数据
                 this.data_data['did'] = this.directory_id;
                 const component = this;
+
                 async function insert_data() { // 插入数据
+                    let result = null;
                     try {
-                        const insert_result = await designer_data_data.insert_(component.data_data);
+                        result = await designer_data_data.insert_(component.data_data); // return the insert result's id
                         component.$Message.success('insert data data success');
                     } catch (e) {
                         console.log(e.response.data);
                         component.$Message.error(e.response.data);
                     }
+                    return result;
                 }
 
                 async function update_data() { // 修改数据
@@ -102,7 +106,7 @@
                 }
 
                 if (this.data_id == null) {
-                    await insert_data();
+                    this.data_id = await insert_data();
                 } else {
                     await update_data();
                 }
@@ -110,6 +114,7 @@
             }
         },
         async created() {
+            this.data_id = this.input_data_id;
             await this.init_data_struct();
             await this.init_data_data();
         }

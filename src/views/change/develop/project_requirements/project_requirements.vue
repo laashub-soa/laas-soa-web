@@ -25,7 +25,7 @@
             return {
                 directory_id: 10,
                 directory_name: "",
-                data_id: 1,
+                data_id: null,
             }
         }
     }
