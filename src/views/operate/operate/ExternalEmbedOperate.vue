@@ -111,6 +111,9 @@
                     await update_data();
                 }
                 await this.init_data_data();
+                if (this.change_callback != null) {
+                    this.change_callback(this._data); // 调用回调并传递当前组件内的数据
+                }
             }
         },
         async created() {

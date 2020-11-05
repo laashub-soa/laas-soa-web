@@ -2,7 +2,7 @@
   <div>
     <router-view/>
     <div style="height: 150px">
-      前置流程区域
+
     </div>
     <ExternalEmbedOperate
       :directory_id=directory_id
