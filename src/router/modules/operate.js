@@ -20,7 +20,7 @@ const operateRouter = {
     },
     {
       path: '/operate/operate',
-      component: () => import('@/views/operate/operate/Dashboard'), // Parent router-view
+      component: () => import('@/views/operate/operate/databoard/DataBoard'), // Parent router-view
       name: '操作台',
       meta: {title: '操作台'},
     },
