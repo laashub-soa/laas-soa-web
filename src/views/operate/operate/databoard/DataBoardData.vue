@@ -84,11 +84,11 @@
 <script>
     import {Tree, VueTreeList} from 'vue-tree-list'
     import DirectoryDescription from "@/components/directory/DirectoryDescription";
-    import designer_data_struct from "../../designer/designer_data/designer_data_struct/designer_data_struct";
-    import designer_data_data from "./data_board_data";
+    import designer_data_struct from "@/views/operate/designer/designer_data/designer_data_struct/designer_data_struct";
+    import designer_data_data from "@/views/operate/operate/databoard/data_board_data";
     import component_table from "@/components/table";
-    import designer_data_logic_trigger from "../../designer/designer_data_logic_trigger";
-    import engine from "./engine";
+    // import designer_data_logic_trigger from "../../designer/designer_data_logic_trigger";
+    // import engine from "./engine";
 
     const update_description_btn_str = "update description";
     const save_description_btn_str = "save description";

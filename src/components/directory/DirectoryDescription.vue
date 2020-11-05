@@ -17,7 +17,7 @@
 </template>
 
 <script>
-    import directory from "./directory";
+    import directory from "@/components/directory/directory";
 
     const update_description_btn_str = "修改";
     const save_description_btn_str = "保存";

@@ -196,7 +196,7 @@ export const asyncRoutes = [
   monitorRouter,
   securityRouter,
   chaosRouter,
-  developRouter,
+  // developRouter,
   // tableRouter,
 
   // {
