@@ -1,5 +1,5 @@
 <template>
-  <div style="border:1px solid #dcdfe6;margin-top: 50px">
+  <div style="border:1px solid #dcdfe6;margin-top: 15px">
     <i-form :label-width=200>
       <row v-for="(data_struct_value, data_struct_key) in data_struct">
         <form-item :label="data_struct_value" :prop="data_struct_key">
@@ -7,7 +7,7 @@
         </form-item>
       </row>
       <row>
-        <i-button type="primary" long @click="change_data_data" v-if="change_callback==null">提交</i-button>
+        <!--        <i-button type="primary" long @click="change_data_data" v-if="change_callback==null">提交</i-button>-->
       </row>
     </i-form>
   </div>
@@ -114,6 +114,7 @@
                 if (this.change_callback != null) {
                     this.change_callback(this._data); // 调用回调并传递当前组件内的数据
                 }
+                return this.data_id;
             }
         },
         async created() {
