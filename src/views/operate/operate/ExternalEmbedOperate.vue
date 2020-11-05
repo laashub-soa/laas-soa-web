@@ -15,6 +15,7 @@
 
 <script>
     import designer_data_struct from "@/views/operate/designer/designer_data/designer_data_struct/designer_data_struct";
+    import designer_data_data from "@/views/operate/operate/databoard/data_board_data";
 
     export default {
         name: "ExternalEmbedOperate", // 外嵌操作台
@@ -60,29 +61,26 @@
                     this.$Message.error(e.response.data);
                 }
             },
-            // async init_data_data() { // 初始化数据数据
-            //     if (this.data_id == null) return;
-            //     const request_data = {
-            //         page_current: 1,
-            //         page_size: 1,
-            //         search: {'did': this.directory_id},
-            //     };
-            //     const search_list = this._data.search.template;
-            //     for (const item of search_list) {
-            //         const prop = item["prop"];
-            //         const v_model = item["v_model"];
-            //         if (!v_model || v_model == '') continue;
-            //         request_data.search[prop] = v_model;
-            //     }
-            //     const resp_data = await designer_data_data.select_(request_data);
-            //     this._data.page.total = resp_data['page_total'];
-            //     this._data.data = resp_data['data'];
-            //     this.$Message.success('query data_struct success');
-            // },
+            async init_data_data() { // 初始化数据数据
+                if (this.data_id == null) return;
+                try {
+                    const request_data = {
+                        page_current: 1,
+                        page_size: 1,
+                        search: {'did': this.directory_id, 'id': this.data_id},
+                    };
+                    const resp_data = await designer_data_data.select_(request_data);
+                    this.data_data = resp_data['data'][0];
+                    this.$Message.success('query data data success');
+                } catch (e) {
+                    console.log(e);
+                    this.$Message.error(e.response.data);
+                }
+            },
         },
         async created() {
             await this.init_data_struct();
-            // await this.init_data_data();
+            await this.init_data_data();
         }
     }
 </script>
