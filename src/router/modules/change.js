@@ -26,7 +26,7 @@ const changeRouter = {
         },
         {
           path: 'design',
-          component: () => import('@/views/nested/menu1/index'),
+          component: () => import('@/views/change/workflow/Struct'),
           name: '设计',
           meta: {title: '设计'}
         },
