@@ -1,19 +1,17 @@
 <template>
-  <div class="login-container"></div>
+  <div class="login-container">
+    <WorkWechatLogin_outer></WorkWechatLogin_outer>
+  </div>
 </template>
 
 <script>
-    import work_wechat from '../user/work_wechat'
+    import WorkWechatLogin_outer from "@/views/user/WorkWechatLogin_outer";
 
     export default {
         name: 'Login',
-        created() {
-            work_wechat.login();
-        },
-        mounted() {
-
-        },
-
+        components: {
+            WorkWechatLogin_outer
+        }
     }
 </script>
 

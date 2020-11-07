@@ -1,6 +1,8 @@
 let config = {
   app_id: "ww144549834d4c265e",
   agent_id: "1000006",
+  redirect_uri: encodeURIComponent('xxx/redirect?redirect=' + window.location.href + '/rest/user/work_wechat/auth-redirect'),
+  state: 'STATE',
 }
 
 function openWindow(url, title, w, h) {
@@ -22,8 +24,7 @@ function openWindow(url, title, w, h) {
 }
 
 function login() {
-  const redirect_uri = encodeURIComponent('xxx/redirect?redirect=' + window.location.href + '/rest/user/work_wechat/auth-redirect')
-  const url = 'https://open.work.weixin.qq.com/wwopen/sso/qrConnect?appid=' + config.app_id + '&agentid=' + config.agent_id + '&redirect_uri=' + redirect_uri + '&state=STATE'
+  const url = 'https://open.work.weixin.qq.com/wwopen/sso/qrConnect?appid=' + config.app_id + '&agentid=' + config.agent_id + '&redirect_uri=' + config.redirect_uri + '&state=' + config.state
   openWindow(url, 'wechat', 540, 540)
 }
 
