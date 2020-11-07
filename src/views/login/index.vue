@@ -1,7 +1,7 @@
 <template>
   <div>
     <center>
-      <!--    <WorkWechatLogin_outer></WorkWechatLogin_outer>-->
+      <!--          <WorkWechatLogin_outer></WorkWechatLogin_outer>-->
       <WorkWechatLogin></WorkWechatLogin>
     </center>
   </div>
