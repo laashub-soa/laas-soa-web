@@ -5,16 +5,20 @@
 </template>
 
 <script>
+    import work_wechat from './work_wechat'
+
     require('./wwLogin-1.0.0.js');
-    let config = {
-        app_id: "ww144549834d4c265e",
-        agent_id: "1000006",
-        redirect_uri: encodeURIComponent(location.protocol + "//" + location.host + '/rest/user/work_wechat/auth-redirect'),
-        state: 'STATE',
-    }
+
     export default {
         name: "WorkWechatLogin", // 企业微信内嵌二维码登录方式
-        mounted() {
+        async mounted() {
+            const login_config = await work_wechat.get_config();
+            let config = {
+                app_id: login_config["app_id"],
+                agent_id: login_config["agent_id"],
+                redirect_uri: encodeURIComponent(location.protocol + "//" + location.host + '/rest/user/work_wechat/auth-redirect'),
+                state: 'STATE',
+            }
             window.WwLogin({
                 "id": "wx_reg",
                 "appid": config.app_id,

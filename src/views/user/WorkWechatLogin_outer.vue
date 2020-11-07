@@ -5,12 +5,7 @@
 </template>
 
 <script>
-    let config = {
-        app_id: "ww144549834d4c265e",
-        agent_id: "1000006",
-        redirect_uri: encodeURIComponent(location.protocol + "//" + location.host + '/rest/user/work_wechat/auth-redirect'),
-        state: 'STATE',
-    }
+    import work_wechat from './work_wechat'
 
     function openWindow(url, title, w, h) {
         // Fixes dual-screen position                            Most browsers       Firefox
@@ -30,7 +25,14 @@
         }
     }
 
-    function login() {
+    async function login() {
+        const login_config = await work_wechat.get_config();
+        let config = {
+            app_id: login_config["app_id"],
+            agent_id: login_config["agent_id"],
+            redirect_uri: encodeURIComponent(location.protocol + "//" + location.host + '/rest/user/work_wechat/auth-redirect'),
+            state: 'STATE',
+        }
         const url = 'https://open.work.weixin.qq.com/wwopen/sso/qrConnect?appid=' + config.app_id + '&agentid=' + config.agent_id + '&redirect_uri=' + config.redirect_uri + '&state=' + config.state
         openWindow(url, 'wechat', 540, 540)
     }
