@@ -9,10 +9,9 @@
     let config = {
         app_id: "ww144549834d4c265e",
         agent_id: "1000006",
-        redirect_uri: window.location.href + '/rest/user/work_wechat/auth-redirect',
+        redirect_uri: location.host + '/rest/user/work_wechat/auth-redirect',
         state: 'STATE',
     }
-
     export default {
         name: "WorkWechatLogin", // 企业微信内嵌二维码登录方式
         mounted() {
