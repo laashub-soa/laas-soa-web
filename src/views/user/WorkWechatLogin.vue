@@ -9,7 +9,7 @@
     let config = {
         app_id: "ww144549834d4c265e",
         agent_id: "1000006",
-        redirect_uri: location.host + '/rest/user/work_wechat/auth-redirect',
+        redirect_uri: encodeURIComponent(location.host + '/rest/user/work_wechat/auth-redirect'),
         state: 'STATE',
     }
     export default {
