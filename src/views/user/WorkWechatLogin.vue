@@ -6,7 +6,7 @@
 
 <script>
     import work_wechat from './work_wechat'
-    import {removeToken, setToken} from '@/utils/auth.js'
+    import {removeToken} from '@/utils/auth.js'
 
     require('./wwLogin-1.0.0.js');
 
@@ -15,7 +15,7 @@
         async mounted() {
             const component = this;
 
-            function check_url() {
+            async function check_url() {
                 const url = location.href;
                 const url_params_str = url.substring(url.indexOf("?") + 1, url.indexOf("#"));
                 console.log("url_params_str: " + url_params_str)
@@ -23,14 +23,15 @@
                 const param_key = url_params_str.substring(0, sub_index);
                 const param_value = url_params_str.substring(sub_index + 1, url_params_str.length);
                 if (param_key == "token") { // 登录成功
-                    setToken(param_value)
-                    location.href = "/"
+                    await component.$store.dispatch('user/login', param_value).then(() => {
+                        component.$router.replace({path: '/'})
+                    })
                 } else { // 登录失败
                     removeToken()
                 }
             }
 
-            check_url()
+            await check_url()
 
             const login_config = await work_wechat.get_config();
             let config = {

@@ -1,10 +1,10 @@
-import {getInfo, login, logout} from '@/api/user'
+import {getInfo, logout} from '@/api/user'
 import {getToken, removeToken, setToken} from '@/utils/auth'
 import router, {resetRouter} from '@/router'
 
 const state = {
   token: getToken(),
-  name: '',
+  name: 'admin',
   avatar: '',
   introduction: '',
   roles: []
@@ -31,58 +31,31 @@ const mutations = {
 const actions = {
   // user login
   login({commit}, token) {
+    console.log("login");
     commit('SET_TOKEN', token)
     setToken(token)
-    return new Promise((resolve, reject) => {
-      login({username: "admin", password: "admin"}).then(response => {
-        const {data} = response
-        resolve()
-      }).catch(error => {
-        reject(error)
-      })
-    })
+    // 从网络请求角色信息
+    commit('SET_ROLES', ["admin"])
 
   },
 
   // get user info
   getInfo({commit, state}) {
-    return new Promise((resolve, reject) => {
-      getInfo(state.token).then(response => {
-        const {data} = response
-
-        if (!data) {
-          reject('Verification failed, please Login again.')
-        }
-
-        const {roles, name, avatar, introduction} = data
-
-        // roles must be a non-empty array
-        if (!roles || roles.length <= 0) {
-          reject('getInfo: roles must be a non-null array!')
-        }
-
-        commit('SET_ROLES', roles)
-        commit('SET_NAME', name)
-        commit('SET_AVATAR', avatar)
-        commit('SET_INTRODUCTION', introduction)
-        resolve(data)
-      }).catch(error => {
-        reject(error)
-      })
-    })
+    // commit('SET_ROLES', state["roles"])
+    // commit('SET_NAME', state["name"])
+    // commit('SET_AVATAR', state["avatar"])
+    // commit('SET_INTRODUCTION', state["introduction"])
+    return state
   },
 
   // user logout
   logout({commit, state, dispatch}) {
     console.log("logout")
-    return new Promise((resolve, reject) => {
-      commit('SET_TOKEN', '')
-      commit('SET_ROLES', [])
-      removeToken()
-      resetRouter()
-      dispatch('tagsView/delAllViews', null, {root: true})
-      resolve()
-    })
+    commit('SET_TOKEN', '')
+    commit('SET_ROLES', [])
+    removeToken()
+    resetRouter()
+    dispatch('tagsView/delAllViews', null, {root: true})
   },
 
   // remove token
