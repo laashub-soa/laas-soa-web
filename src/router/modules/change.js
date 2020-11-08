@@ -46,18 +46,18 @@ const changeRouter = {
           meta: {title: '研发'},
           redirect: '/change/change/develop/project_requirements',
           children: [
-            {
-              path: '/change/change/develop/project_requirements',
-              name: '项目需求',
-              component: () => import('@/views/change/change/develop/project_requirements/ProjectRequirements'),
-              meta: {title: '项目需求'}
-            },
             // {
-            //   path: 'project_build',
-            //   name: '项目构建',
-            //   component: () => import('@/views/change/develop/project_build/project_build'),
-            //   meta: {title: '项目构建'}
+            //   path: '/change/change/develop/project_requirements',
+            //   name: '项目需求',
+            //   component: () => import('@/views/change/change/develop/project_requirements/ProjectRequirements'),
+            //   meta: {title: '项目需求'}
             // },
+            {
+              path: 'project_build',
+              name: '项目构建',
+              // component: () => import('@/views/change/develop/project_build/project_build'),
+              meta: {title: '项目构建'}
+            },
             {
               path: 'project_deploy',
               name: '项目部署',

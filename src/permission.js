@@ -32,7 +32,6 @@ router.beforeEach(async (to, from, next) => {
   }
   // 是否已经初始化界面路由
   if (window.is_init_page) { // 已经初始化过界面了
-    console.log("已经初始化界面");
     next()
     return
   }
