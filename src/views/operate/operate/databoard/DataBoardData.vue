@@ -167,6 +167,12 @@
                         return;
                     }
                     const column_width = component_table.calculate_table_column_width(false, this, data_struct_list.length+1);
+                    // id
+                    this._data.column_keys.push('id');
+                    this._data.columns.push({
+                        title:'id',
+                        key: 'id'
+                    });
                     // basic column
                     for (const item of data_struct_list) {
                         const code = item["code"];

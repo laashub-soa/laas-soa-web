@@ -11,6 +11,7 @@
 </template>
 
 <script>
+   // TODO 支持设置是否缓存本地, 当缓存到本地时自动缓存数据到本地, 需要传递business_id和is_cache_2_local
     import designer_data_struct from "@/views/operate/designer/designer_data/designer_data_struct/designer_data_struct";
     import designer_data_data from "@/views/operate/operate/databoard/data_board_data";
 
