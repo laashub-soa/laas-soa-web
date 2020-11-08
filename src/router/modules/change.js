@@ -55,7 +55,7 @@ const changeRouter = {
             {
               path: 'project_build',
               name: '项目构建',
-              // component: () => import('@/views/change/develop/project_build/project_build'),
+              component: () => import('@/views/change/change/develop/project_build/ProjectBuild'),
               meta: {title: '项目构建'}
             },
             {
