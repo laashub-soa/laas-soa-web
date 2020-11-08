@@ -6,9 +6,6 @@
           <i-input v-model="data_data[data_struct_key]"></i-input>
         </form-item>
       </row>
-      <row>
-        <!--        <i-button type="primary" long @click="change_data_data" v-if="change_callback==null">提交</i-button>-->
-      </row>
     </i-form>
   </div>
 </template>
