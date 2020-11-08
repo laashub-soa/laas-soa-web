@@ -40,7 +40,9 @@ router.beforeEach(async (to, from, next) => {
   // 初始化界面路由
   try {
     // const page_permission = get_page_permission(); // 查询页面权限
+    console.log(asyncRoutes);
     router.addRoutes(asyncRoutes)
+    console.log("初始化界面路由")
     window.is_init_page = true;
     next({...to, replace: true})
   } catch (error) {

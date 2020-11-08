@@ -31,7 +31,6 @@ const mutations = {
 const actions = {
   // user login
   login({commit}, token) {
-    console.log("login");
     commit('SET_TOKEN', token)
     setToken(token)
     // 从网络请求角色信息
@@ -50,7 +49,6 @@ const actions = {
 
   // user logout
   logout({commit, state, dispatch}) {
-    console.log("logout")
     commit('SET_TOKEN', '')
     commit('SET_ROLES', [])
     removeToken()

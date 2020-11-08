@@ -18,13 +18,12 @@
             async function check_url() {
                 const url = location.href;
                 const url_params_str = url.substring(url.indexOf("?") + 1, url.indexOf("#"));
-                console.log("url_params_str: " + url_params_str)
                 const sub_index = url_params_str.indexOf("=")
                 const param_key = url_params_str.substring(0, sub_index);
                 const param_value = url_params_str.substring(sub_index + 1, url_params_str.length);
                 if (param_key == "token") { // 登录成功
                     await component.$store.dispatch('user/login', param_value).then(() => {
-                        component.$router.replace({path: '/'})
+                        location.href = "/"
                     })
                 } else { // 登录失败
                     removeToken()
