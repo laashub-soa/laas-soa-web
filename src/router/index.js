@@ -9,6 +9,7 @@ import monitorRouter from './modules/monitor'
 import securityRouter from './modules/security'
 import chaosRouter from './modules/chaos'
 import developRouter from './modules/develop'
+import userRouter from "@/router/modules/user";
 
 Vue.use(Router)
 
@@ -95,6 +96,7 @@ export const constantRoutes = [
  */
 export const asyncRoutes = [
 
+  userRouter,
   operateRouter,
   changeRouter,
   monitorRouter,
