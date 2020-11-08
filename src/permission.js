@@ -5,7 +5,6 @@ import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress bar style
 import {getToken} from '@/utils/auth' // get token from cookie
 import getPageTitle from '@/utils/get-page-title'
-import {asyncRoutes} from '@/router'
 
 NProgress.configure({showSpinner: false}) // NProgress Configuration
 
@@ -40,8 +39,8 @@ router.beforeEach(async (to, from, next) => {
   // 初始化界面路由
   try {
     // const page_permission = get_page_permission(); // 查询页面权限
-    console.log(asyncRoutes);
-    router.addRoutes(asyncRoutes)
+    const accessRoutes = await store.dispatch('permission/generateRoutes', null)
+    router.addRoutes(accessRoutes)
     console.log("初始化界面路由")
     window.is_init_page = true;
     next({...to, replace: true})
