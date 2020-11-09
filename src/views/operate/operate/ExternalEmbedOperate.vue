@@ -11,7 +11,7 @@
 </template>
 
 <script>
-   // TODO 支持设置是否缓存本地, 当缓存到本地时自动缓存数据到本地, 需要传递business_id和is_cache_2_local
+    import common from '@/local_cache_data/common.js'
     import designer_data_struct from "@/views/operate/designer/designer_data/designer_data_struct/designer_data_struct";
     import designer_data_data from "@/views/operate/operate/databoard/data_board_data";
 
@@ -33,7 +33,11 @@
             change_callback: { // 变更数据时的回调函数
                 default: null,
                 type: Function
-            }
+            },
+            is_cache_2_local: { // 是否缓存本地
+                default: false,
+                type: Boolean
+            },
         },
         data() {
             return {
@@ -112,6 +116,9 @@
                 if (this.change_callback != null) {
                     this.change_callback(this._data); // 调用回调并传递当前组件内的数据
                 }
+                // 缓存数据到本地
+                this.$Message.success('已经缓存数据到本地');
+                common.set_cache("data_data" + this.directory_id, component.data_data);
                 return this.data_id;
             }
         },
@@ -119,6 +126,9 @@
             this.data_id = this.input_data_id;
             await this.init_data_struct();
             await this.init_data_data();
+            // 取出缓存到界面
+            this.data_data = common.get_cache("data_data" + this.directory_id);
+            this.$Message.success('已经取出缓存到界面');
         }
     }
 </script>

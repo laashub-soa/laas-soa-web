@@ -4,7 +4,8 @@
     <ExternalEmbedOperate
       :directory_id=directory_id
       :directory_name=directory_name
-      :data_id=data_id
+      :data_id=data_data_id
+      :is_cache_2_local=is_cache_2_local
       ref="external_embed_operate"
     ></ExternalEmbedOperate>
 
@@ -33,6 +34,7 @@
                 directory_id: 7,
                 directory_name: "",
                 data_data_id: null,
+                is_cache_2_local: true,
             }
         },
         methods: {
@@ -42,10 +44,10 @@
                 // 触发动作
                 await executor.execute_business("build_project", this.directory_id, this.data_data_id);
             },
-            async commit() { // 提交
-                this.data_id = await this.$refs.external_embed_operate.change_data_data();
-                await this.$refs.workflow_wrapper.create_workflow("develop_project_requirements", "研发项目需求", this.data_id);
-            }
+            // async commit() { // 提交
+            //     this.data_id = await this.$refs.external_embed_operate.change_data_data();
+            //     await this.$refs.workflow_wrapper.create_workflow("develop_project_requirements", "研发项目需求", this.data_id);
+            // }
         },
     }
 </script>
