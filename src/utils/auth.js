@@ -1,4 +1,4 @@
-const TokenKey = 'soa_token'
+export const TokenKey = 'Laas-Soa-Token'
 
 export function getToken() {
   return localStorage.getItem(TokenKey)
