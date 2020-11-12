@@ -59,54 +59,40 @@ const changeRouter = {
               meta: {title: '项目构建'},
               redirect: '/change/change/develop/project_build/build_project',
               children: [
-                // 数据
-                {
-                  path: 'config_git_repository_data',
-                  name: '配置源码仓库数据',
-                  component: () => import('@/views/change/change/develop/project_build/ProjectBuild'),
-                  meta: {title: '配置源码仓库数据'}
-                },
-                {
-                  path: 'config_docker_repository_data',
-                  name: '配置docker仓库数据',
-                  component: () => import('@/views/change/change/develop/project_build/ProjectBuild'),
-                  meta: {title: '配置docker仓库数据'}
-                },
-                {
-                  path: 'config_project_info_data',
-                  name: '配置项目信息数据',
-                  component: () => import('@/views/change/change/develop/project_build/ProjectBuild'),
-                  meta: {title: '配置项目信息数据'}
-                },
-                {
-                  path: 'config_project_build_info_data',
-                  name: '配置项目构建信息数据',
-                  component: () => import('@/views/change/change/develop/project_build/ProjectBuild'),
-                  meta: {title: '配置项目构建信息数据'}
-                },
-                // 指令
-                {
-                  path: 'config_project_build_business',
-                  name: '配置项目构建指令',
-                  component: () => import('@/views/change/change/develop/project_build/ProjectBuild'),
-                  meta: {title: '配置项目构建指令'}
-                },
+                // // 数据
+                // {
+                //   path: 'config_git_repository_data',
+                //   name: '配置代码仓库数据',
+                //   component: () => import('@/views/change/change/develop/project_build/ConfigCodeRepositoryData'),
+                //   meta: {title: '配置代码仓库数据'}
+                // },
+                // {
+                //   path: 'config_docker_repository_data',
+                //   name: '配置docker仓库数据',
+                //   component: () => import('@/views/change/change/develop/project_build/ConfigDockerRepositoryData'),
+                //   meta: {title: '配置docker仓库数据'}
+                // },
+                // {
+                //   path: 'config_project_build_info_data',
+                //   name: '配置项目构建信息数据',
+                //   component: () => import('@/views/change/change/develop/project_build/ConfigProjectBuildInfoData'),
+                //   meta: {title: '配置项目构建信息数据'}
+                // },
+                // // 指令
+                // {
+                //   path: 'config_project_build_business',
+                //   name: '配置项目构建指令',
+                //   component: () => import('@/views/change/change/develop/project_build/ConfigProjectBuildBusiness'),
+                //   meta: {title: '配置项目构建指令'}
+                // },
                 // 动作
                 {
                   path: 'build_project',
                   name: '构建项目',
-                  component: () => import('@/views/change/change/develop/project_build/ProjectBuild'),
+                  component: () => import('@/views/change/change/develop/project_build/BuildProject'),
                   meta: {title: '构建项目'}
                 },
               ]
-            },
-
-
-            {
-              path: 'project_deploy',
-              name: '项目部署',
-              // component: () => import('@/views/nested/menu1/index'),
-              meta: {title: '项目部署'}
             },
             {
               path: 'config_file',
@@ -114,6 +100,13 @@ const changeRouter = {
               // component: () => import('@/views/nested/menu1/index'),
               meta: {title: '配置文件'}
             },
+            {
+              path: 'project_deploy',
+              name: '项目部署',
+              // component: () => import('@/views/nested/menu1/index'),
+              meta: {title: '项目部署'}
+            },
+
             {
               path: 'database',
               name: '数据库',

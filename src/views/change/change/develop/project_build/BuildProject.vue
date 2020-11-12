@@ -25,7 +25,7 @@
     import ExternalEmbedOperate from "@/views/operate/operate/ExternalEmbedOperate";
 
     export default {
-        name: "ProjectBuild",
+        name: "BuildProject",
         components: {
             ExternalEmbedOperate,
         },
