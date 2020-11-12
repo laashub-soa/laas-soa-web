@@ -42,7 +42,7 @@
                 // 保存动作数据
                 this.data_data_id = await this.$refs.external_embed_operate.change_data_data();
                 // 触发动作
-                await executor.execute_business("build_project", this.directory_id, this.data_data_id);
+                await executor.execute_business("1", this.directory_id, this.data_data_id);
             },
             // async commit() { // 提交
             //     this.data_id = await this.$refs.external_embed_operate.change_data_data();
