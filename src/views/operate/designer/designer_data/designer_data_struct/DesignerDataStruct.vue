@@ -1,61 +1,61 @@
 <template>
   <div>
     <DirectoryDescription :directory_id="directory_id"></DirectoryDescription>
-    <Button @click="init_table">Refresh</Button>
-    <i-button @click="init_insert_">Add</i-button>
+    <Button @click="init_table">刷新</Button>
+    <i-button @click="init_insert_">新增</i-button>
     <span style="user-select: text">table_name: designer_data_data_{{directory_id}}</span>
     <i-table stripe border :columns="columns"
              :data="data"
              :loading="loading"
     ></i-table>
-<!--    <collapse>-->
-<!--      <panel>-->
-<!--        Data Input Channel(Data input from Logic)-->
-<!--        <p slot="content"-->
-<!--           v-for="item in associate.io.set">{{item}}</p>-->
-<!--      </panel>-->
-<!--    </collapse>-->
-<!--    <collapse>-->
-<!--      <panel>-->
-<!--        Data Output Channel(Data output to Logic)-->
-<!--        <p slot="content"-->
-<!--           v-for="item in associate.io.get">{{item}}</p>-->
-<!--      </panel>-->
-<!--    </collapse>-->
-<!--    &lt;!&ndash;                                        <collapse>&ndash;&gt;-->
-<!--    &lt;!&ndash;                                            <panel>&ndash;&gt;-->
-<!--    &lt;!&ndash;                                                // Data Subscribe Channel(Logic makes the data subscribe to its own changes(running/pause/exception/finish),after the logic changes,it will trigger time to the data,and the data will change)&ndash;&gt;-->
-<!--    &lt;!&ndash;                                                <p slot="content"&ndash;&gt;-->
-<!--    &lt;!&ndash;                                                   v-for="item in designer_data_directory.channel.data_subscribe">{{item}}</p>&ndash;&gt;-->
-<!--    &lt;!&ndash;                                            </panel>&ndash;&gt;-->
-<!--    &lt;!&ndash;                                        </collapse>&ndash;&gt;-->
-<!--    <collapse>-->
-<!--      <panel>-->
-<!--        Data Trigger Channel(Logic subscribe to the data change(crud),after the data chanages, the event will be-->
-<!--        triggered to the logic, and the logic will be executed)-->
-<!--        <div slot="content">-->
-<!--          &lt;!&ndash;insert&ndash;&gt;-->
-<!--          <collapse>-->
-<!--            <panel>-->
-<!--              insert<p slot="content" v-for="item in associate.trigger.insert">{{item}}</p>-->
-<!--            </panel>-->
-<!--          </collapse>-->
-<!--          &lt;!&ndash;update&ndash;&gt;-->
-<!--          <collapse>-->
-<!--            <panel>-->
-<!--              update<p slot="content" v-for="item in associate.trigger.update">{{item}}</p>-->
-<!--            </panel>-->
-<!--          </collapse>-->
-<!--          &lt;!&ndash;delete&ndash;&gt;-->
-<!--          <collapse>-->
-<!--            <panel>-->
-<!--              delete<p slot="content" v-for="item in associate.trigger.delete">{{item}}</p>-->
-<!--            </panel>-->
-<!--          </collapse>-->
+    <!--    <collapse>-->
+    <!--      <panel>-->
+    <!--        Data Input Channel(Data input from Logic)-->
+    <!--        <p slot="content"-->
+    <!--           v-for="item in associate.io.set">{{item}}</p>-->
+    <!--      </panel>-->
+    <!--    </collapse>-->
+    <!--    <collapse>-->
+    <!--      <panel>-->
+    <!--        Data Output Channel(Data output to Logic)-->
+    <!--        <p slot="content"-->
+    <!--           v-for="item in associate.io.get">{{item}}</p>-->
+    <!--      </panel>-->
+    <!--    </collapse>-->
+    <!--    &lt;!&ndash;                                        <collapse>&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                            <panel>&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                                // Data Subscribe Channel(Logic makes the data subscribe to its own changes(running/pause/exception/finish),after the logic changes,it will trigger time to the data,and the data will change)&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                                <p slot="content"&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                                   v-for="item in designer_data_directory.channel.data_subscribe">{{item}}</p>&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                            </panel>&ndash;&gt;-->
+    <!--    &lt;!&ndash;                                        </collapse>&ndash;&gt;-->
+    <!--    <collapse>-->
+    <!--      <panel>-->
+    <!--        Data Trigger Channel(Logic subscribe to the data change(crud),after the data chanages, the event will be-->
+    <!--        triggered to the logic, and the logic will be executed)-->
+    <!--        <div slot="content">-->
+    <!--          &lt;!&ndash;insert&ndash;&gt;-->
+    <!--          <collapse>-->
+    <!--            <panel>-->
+    <!--              insert<p slot="content" v-for="item in associate.trigger.insert">{{item}}</p>-->
+    <!--            </panel>-->
+    <!--          </collapse>-->
+    <!--          &lt;!&ndash;update&ndash;&gt;-->
+    <!--          <collapse>-->
+    <!--            <panel>-->
+    <!--              update<p slot="content" v-for="item in associate.trigger.update">{{item}}</p>-->
+    <!--            </panel>-->
+    <!--          </collapse>-->
+    <!--          &lt;!&ndash;delete&ndash;&gt;-->
+    <!--          <collapse>-->
+    <!--            <panel>-->
+    <!--              delete<p slot="content" v-for="item in associate.trigger.delete">{{item}}</p>-->
+    <!--            </panel>-->
+    <!--          </collapse>-->
 
-<!--        </div>-->
-<!--      </panel>-->
-<!--    </collapse>-->
+    <!--        </div>-->
+    <!--      </panel>-->
+    <!--    </collapse>-->
 
   </div>
 </template>
@@ -90,10 +90,11 @@
         data() {
             return {
                 columns: [
-                    component_table.editable_table_common_column(this, "code", "code", column_width),
-                    component_table.editable_table_common_column(this, "meaning", "meaning", column_width),
-                    component_table.editable_table_common_column(this, "reference_type", "reference_type", column_width),
-                    component_table.editable_table_common_operation_column(this),
+                    component_table.editable_table_common_column(this, "代码值", "code", column_width),
+                    component_table.editable_table_common_column(this, "含义", "meaning", column_width),
+                    component_table.editable_table_common_column(this, "关联数据模型", "reference_type", column_width),
+                    component_table.editable_table_common_operation_column(this),// 操作
+                    component_table.table_column_is_open_data(this),// 是否开放数据
                 ],
                 data: [],
                 data_line_backup: {},

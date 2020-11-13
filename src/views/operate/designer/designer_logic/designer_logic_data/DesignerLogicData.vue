@@ -2,8 +2,10 @@
   <div>
     language: Python; Version: 3+;
     <i-button @click="standard.display = true">Show Standard</i-button>
-    <modal v-model="standard.display" title="Logic Coding Standard" width="80vw">
-      <pre style="width: 90vw">{{standard.content}}</pre>
+    <!--width="80vw"-->
+    <modal v-model="standard.display" title="Logic Coding Standard" >
+      <!--style="width: 90vw"-->
+      <pre >{{standard.content}}</pre>
     </modal>
     <codemirror
       ref="cmEditor"

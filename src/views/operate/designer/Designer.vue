@@ -16,7 +16,8 @@
 <!--        </Breadcrumb>-->
 <!--      </span>-->
     </div>
-    <div style="height: 88vh;border: 1px solid #d6d6d6;">
+    <!--height: 88vh;-->
+    <div style="border: 1px solid #d6d6d6;">
             <span>
                 <Split v-model="split">
                     <div slot="left">

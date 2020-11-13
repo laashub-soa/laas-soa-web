@@ -1,7 +1,7 @@
 const nav_area_width_designer = 10;
 const nav_area_width_use = 43;
 const table_column_operation_status_width = 130;
-const editable_table_common_operation_column_width = 90;
+const editable_table_common_operation_column_width = 150;
 
 function cancel_opt_data(component) {
   const opt_name = component._data.opt_name;
@@ -73,10 +73,52 @@ function editable_table_common_column(component, title, key, column_width) {
   }
 }
 
+const table_column_is_open_data_width = 100;
+
+/**
+ * 表格列-是否开放数据
+ */
+function table_column_is_open_data(component) {
+  return {
+    title: '是否开放数据',
+    slot: 'is_open_data',
+    align: 'center',
+    width: table_column_is_open_data_width,
+    resizable: true,
+    render: (h, params) => {
+      const div_data = [];
+      div_data.push(h('i-switch', {
+        props: {
+          size: 'large',
+          value: component._data.data[params.index]["is_open_data"] == 1 ? true : false,
+        },
+        on: {
+          'on-change': value => {
+            component._data.data[params.index]["is_open_data"] = value == true ? 1 : 0;
+            const cur_line_data = component._data.data[params.index];
+            cancel_opt_data(component, cur_line_data);
+            cur_line_data['did'] = component.directory_id;
+            component.update_(component, cur_line_data);
+          }
+        }
+      }, [
+        h('span', {
+          slot: 'open'
+        }, '开放'),
+        h('span', {
+          slot: 'close'
+        }, '保留')
+      ]));
+      return h('div', div_data);
+    }
+
+
+  };
+}
 
 function editable_table_common_operation_column(component) {
   return {
-    title: 'operation',
+    title: '操作',
     slot: 'operation',
     align: 'center',
     width: editable_table_common_operation_column_width,
@@ -117,6 +159,7 @@ function editable_table_common_operation_column(component) {
               const cur_line_index = params.index;
               const cur_line_data = component._data.data[cur_line_index];
               cur_line_data['did'] = component.directory_id;
+              cur_line_data["is_open_data"] = cur_line_data["is_open_data"] == true ? 1 : 0;
 
               if ("insert" == component._data.opt_name) {
                 component.insert_(component, cur_line_data);
@@ -247,7 +290,7 @@ function table_column_operation_status(component) {
             // gen data status details tree data
             component.data_status_details.display = true;
             const data_data_id = component.data[params.index]["id"];
-            await component.select_engine_data_logic_trigger_status_details_status(component,data_data_id);
+            await component.select_engine_data_logic_trigger_status_details_status(component, data_data_id);
             await component.select_engine_data_logic_trigger_status_details_log(component, "tree", {"data_data_id": data_data_id});
           }
         }
@@ -290,6 +333,7 @@ export default {
   table_column_operation_status,
   editable_table_common_operation_column,
   editable_table_common_column,
+  table_column_is_open_data,
   calculate_table_column_width,
   cancel_opt_data,
   init_insert_,

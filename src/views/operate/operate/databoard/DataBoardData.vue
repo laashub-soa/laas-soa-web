@@ -37,7 +37,8 @@
              border
     ></i-table>
     <!--data status show detail modal-->
-    <modal v-model="data_status_details.display" width="100vw">
+    <!--width="100vw"-->
+    <modal v-model="data_status_details.display" >
       <p slot="header">
         <span>details</span>
       </p>
