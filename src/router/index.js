@@ -3,13 +3,14 @@ import Router from 'vue-router'
 /* Layout */
 import Layout from '@/layout'
 /* Router Modules */
-import changeRouter from './modules/change'
-import operateRouter from './modules/operate'
+import nativeRouter from './modules/native'
 import monitorRouter from './modules/monitor'
 import securityRouter from './modules/security'
 import chaosRouter from './modules/chaos'
 import developRouter from './modules/develop'
 import userRouter from "@/router/modules/user";
+import workflowRouter from "@/router/modules/workflow";
+import operateRouter from "@/router/modules/operate";
 
 Vue.use(Router)
 
@@ -96,12 +97,15 @@ export const constantRoutes = [
  */
 export const asyncRoutes = [
 
-  userRouter,
-  operateRouter,
-  changeRouter,
-  monitorRouter,
-  securityRouter,
-  chaosRouter,
+  userRouter, // 用户领域
+  nativeRouter, // 原生领域
+  workflowRouter, // 流程领域
+  developRouter, // 研发领域
+  operateRouter, // 运维领域
+
+  monitorRouter, // 监控领域
+  securityRouter, // 安全领域
+  chaosRouter, // 混沌领域
   {path: '*', redirect: '/404', hidden: true}
 ]
 

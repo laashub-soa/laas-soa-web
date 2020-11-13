@@ -5,11 +5,94 @@ import Layout from '@/layout'
 const developRouter = {
   path: '/develop',
   component: Layout,
-  name: '研发流程支撑',
+  redirect: '/develop/project_build',
+  name: '研发领域',
   meta: {
-    title: '研发流程支撑',
+    title: '研发领域',
     // icon: 'nested'
   },
+  children: [
+    // {
+    //   path: '/change/change/develop/project_requirements',
+    //   name: '项目需求',
+    //   component: () => import('@/views/change/change/develop/project_requirements/ProjectRequirements'),
+    //   meta: {title: '项目需求'}
+    // },
+    {
+      path: '/develop/project_build',
+      name: '项目构建',
+      component: () => import('@/views/change/index'),
+      redirect: '/develop/project_build/build_project',
+      meta: {title: '项目构建'},
+      children: [
+        // 数据
+        {
+          path: '/develop/project_build/config_git_repository_data',
+          name: '配置代码仓库数据',
+          component: () => import('@/views/change/change/develop/project_build/ConfigCodeRepositoryData'),
+          meta: {title: '配置代码仓库数据'}
+        },
+        {
+          path: '/develop/project_build/config_docker_repository_data',
+          name: '配置docker仓库数据',
+          component: () => import('@/views/change/change/develop/project_build/ConfigDockerRepositoryData'),
+          meta: {title: '配置docker仓库数据'}
+        },
+        {
+          path: '/develop/project_build/config_project_build_info_data',
+          name: '配置项目构建信息数据',
+          component: () => import('@/views/change/change/develop/project_build/ConfigProjectBuildInfoData'),
+          meta: {title: '配置项目构建信息数据'}
+        },
+        // // 指令
+        // {
+        //   path: 'config_project_build_business',
+        //   name: '配置项目构建指令',
+        //   component: () => import('@/views/change/change/develop/project_build/ConfigProjectBuildBusiness'),
+        //   meta: {title: '配置项目构建指令'}
+        // },
+        // 动作
+        {
+          path: '/develop/project_build/build_project',
+          name: '构建项目',
+          component: () => import('@/views/change/change/develop/project_build/BuildProject'),
+          meta: {title: '构建项目'}
+        },
+      ]
+    },
+    {
+      path: '/develop/project_config_file',
+      name: '项目配置文件',
+      meta: {title: '项目配置文件'},
+      children: [
+        {
+          path: '/develop/project_config_file/update_project_config_file',
+          name: '修改项目配置文件',
+          meta: {title: '修改项目配置文件'}
+        },
+      ]
+    },
+
+    {
+      path: '/develop/project_deploy',
+      name: '项目部署',
+      // component: () => import('@/views/nested/menu1/index'),
+      meta: {title: '项目部署'}
+    },
+
+    {
+      path: '/develop/database',
+      name: '数据库',
+      // component: () => import('@/views/nested/menu1/index'),
+      meta: {title: '数据库'}
+    },
+    {
+      path: '/develop/plan_task',
+      name: '计划任务',
+      // component: () => import('@/views/nested/menu1/index'),
+      meta: {title: '计划任务'}
+    }
+  ]
 }
 
 export default developRouter
