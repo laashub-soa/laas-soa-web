@@ -19,11 +19,20 @@ async function select_(service_type, directory) {
 }
 
 
-async function select_tree(service_type,) {
+async function select_tree(service_type, request_data) {
   service_type = reset_service_type(service_type)
-  let net_request_result = await axios.post(base_path + service_type + "/directory/select", {});
+  let net_request_result = await axios.post(base_path + service_type + "/directory/select", request_data);
   if (!net_request_result || !net_request_result.status || net_request_result.status != 200 || !net_request_result.data) return;
-  let original_tree_list = net_request_result.data;
+  // TODO 这里可以优化性能
+  const original_tree_list = net_request_result.data.sort(function (a, b) {
+    if (a.pid > b.pid) {
+      return 1;
+    } else {
+      return -1;
+    }
+    return 0;
+  });
+
   // adapter list to tree
   const name_str = "name";
   const description_str = "description";
@@ -54,6 +63,9 @@ async function select_tree(service_type,) {
     return cur_tree_level.reverse();
   }
 
+  if (!original_tree_list || original_tree_list.length < 1) {
+    return
+  }
   return setup_tree(-1);
 }
 

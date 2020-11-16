@@ -197,7 +197,7 @@
             },
             async init_tree() {
                 try {
-                    this._data.tree = new Tree(await directory.select_tree(this.service_type));
+                    this._data.tree = new Tree(await directory.select_tree(this.service_type, {"is_open_data": this.is_open_data}));
                     this.$Message.success('select directory success');
                 } catch (e) {
                     console.log(e);
@@ -206,7 +206,6 @@
             },
         },
         async created() {
-            console.log(this.is_open_data);
             await this.init_tree();
         },
     }
