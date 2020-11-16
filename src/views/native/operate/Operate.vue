@@ -26,6 +26,7 @@
                 <div slot="left">
                   <Directory @click-directory="OnClickDirectory" v-show="menu_active_name==item" :service_type="item"
                              :is_databoard="is_databoard"
+                             :is_open_data="is_open_data"
                              v-for="item in service_type_list"></Directory>
                 </div>
                 <div slot="right">

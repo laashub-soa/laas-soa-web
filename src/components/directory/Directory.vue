@@ -45,6 +45,10 @@
             "add-directory": Function,
             "drop-directory": Function,
             "click-directory": Function,
+            "is_open_data": {
+                type: Boolean,
+                default: false,
+            },
         },
         components: {
             VueTreeList
@@ -202,6 +206,7 @@
             },
         },
         async created() {
+            console.log(this.is_open_data);
             await this.init_tree();
         },
     }
