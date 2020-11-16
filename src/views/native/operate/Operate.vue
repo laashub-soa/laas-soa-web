@@ -1,13 +1,13 @@
 <template>
   <div>
     <div>
-<!--      <Menu style="font-size: 10px" mode="horizontal" theme="light" :active-name="menu_active_name"-->
-<!--            @on-select="function(name){menu_active_name = name}">-->
-<!--        <MenuItem :name="item" width="40px" style="user-select:none;text-transform:uppercase;"-->
-<!--                  v-for="item in service_type_list">-->
-<!--          {{item}}-->
-<!--        </MenuItem>-->
-<!--      </Menu>-->
+      <!--      <Menu style="font-size: 10px" mode="horizontal" theme="light" :active-name="menu_active_name"-->
+      <!--            @on-select="function(name){menu_active_name = name}">-->
+      <!--        <MenuItem :name="item" width="40px" style="user-select:none;text-transform:uppercase;"-->
+      <!--                  v-for="item in service_type_list">-->
+      <!--          {{item}}-->
+      <!--        </MenuItem>-->
+      <!--      </Menu>-->
       <span>
         <Breadcrumb>
             <BreadcrumbItem v-for="item in breadcrumb.list">
@@ -43,8 +43,8 @@
                                  :key="item.name"
                         >
                           <DesignerDataData v-if="item.type=='data'"
-                                              :directory_id="item.directory_id"
-                                              :directory_name="item.name" :split_value="split"></DesignerDataData>
+                                            :directory_id="item.directory_id"
+                                            :directory_name="item.name" :split_value="split"></DesignerDataData>
                           <DesignerLogicData v-if="item.type=='logic'" :directory_id="item.directory_id"
                                              :directory_name="item.name"></DesignerLogicData>
 
@@ -59,9 +59,9 @@
 
 <script>
     import Directory from '@/components/directory/Directory.vue'
-    import DesignerDataData from "./DataBoardData";
+    import DesignerDataData from "@/views/native/operate/DataBoardData";
     import {Tabs} from "view-design";
-    import DesignerLogicData from "../designer/designer_logic/designer_logic_data/DesignerLogicData";
+    import DesignerLogicData from "@/views/native/designer/designer_logic/designer_logic_data/DesignerLogicData";
 
     export default {
         name: "DataBoard",
@@ -70,6 +70,12 @@
             Directory,
             DesignerDataData,
             Tabs
+        },
+        props: {
+            is_open_data: {
+                default: false,
+                type: Boolean,
+            },
         },
         data() {
             return {
