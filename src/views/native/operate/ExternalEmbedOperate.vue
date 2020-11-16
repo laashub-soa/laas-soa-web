@@ -12,8 +12,8 @@
 
 <script>
     import common from '@/local_cache_data/common.js'
-    import designer_data_struct from "@/views/operate/designer/designer_data/designer_data_struct/designer_data_struct";
-    import designer_data_data from "@/views/operate/operate/databoard/data_board_data";
+    import designer_data_struct from "@/views/native/designer/designer_data/designer_data_struct/designer_data_struct";
+    import designer_data_data from "@/views/native/operate/data_board_data";
 
     export default {
         name: "ExternalEmbedOperate", // 外嵌操作台

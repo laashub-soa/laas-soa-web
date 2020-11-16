@@ -3,9 +3,9 @@
 import Layout from '@/layout'
 
 const operateRouter = {
-  path: '/operate',
+  path: '/native',
   component: Layout,
-  redirect: '/operate',
+  redirect: '/native',
   name: '运维领域',
   meta: {
     title: '运维领域',

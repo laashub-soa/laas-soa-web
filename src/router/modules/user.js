@@ -19,7 +19,7 @@ const userRouter = {
     },
     {
       path: '/user/role',
-      component: () => import('@/views/operate/operate/databoard/DataBoard'),
+      component: () => import('@/views/native/operate/Operate'),
       name: '角色',
       meta: {title: '角色'},
     },

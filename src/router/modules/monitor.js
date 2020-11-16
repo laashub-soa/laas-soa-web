@@ -5,7 +5,7 @@ import Layout from '@/layout'
 const monitorRouter = {
   path: '/monitor',
   component: Layout,
-  // redirect: '/operate/process/audit',
+  // redirect: '/native/process/audit',
   name: '监控领域',
   meta: {
     title: '监控领域',

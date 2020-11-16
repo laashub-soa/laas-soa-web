@@ -85,8 +85,8 @@
 <script>
     import {Tree, VueTreeList} from 'vue-tree-list'
     import DirectoryDescription from "@/components/directory/DirectoryDescription";
-    import designer_data_struct from "@/views/operate/designer/designer_data/designer_data_struct/designer_data_struct";
-    import designer_data_data from "@/views/operate/operate/databoard/data_board_data";
+    import designer_data_struct from "@/views/native/designer/designer_data/designer_data_struct/designer_data_struct";
+    import designer_data_data from "@/views/native/operate/data_board_data";
     import component_table from "@/components/table";
     // import designer_data_logic_trigger from "../../designer/designer_data_logic_trigger";
     // import engine from "./engine";
@@ -462,7 +462,7 @@ data_event:1(1):insert:(time)
 </script>
 
 <style>
-  @import '~view-design/dist/styles/iview.css';
+  @import '../../../../node_modules/view-design/dist/styles/iview.css';
 
   .ivu-split-trigger-vertical {
     width: 2px;

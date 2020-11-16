@@ -61,7 +61,7 @@
     import Directory from '@/components/directory/Directory.vue'
     import DesignerDataData from "./DataBoardData";
     import {Tabs} from "view-design";
-    import DesignerLogicData from "../../designer/designer_logic/designer_logic_data/DesignerLogicData";
+    import DesignerLogicData from "../designer/designer_logic/designer_logic_data/DesignerLogicData";
 
     export default {
         name: "DataBoard",
@@ -185,7 +185,7 @@
 </script>
 
 <style>
-  @import '~view-design/dist/styles/iview.css';
+  @import '../../../../node_modules/view-design/dist/styles/iview.css';
 
   .ivu-split-trigger-vertical {
     width: 2px;

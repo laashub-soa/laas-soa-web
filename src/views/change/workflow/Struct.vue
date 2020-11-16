@@ -7,7 +7,7 @@
 </template>
 
 <script>
-    import DesignerDataData from "@/views/operate/operate/databoard/DataBoardData";
+    import DesignerDataData from "@/views/native/operate/DataBoardData";
 
     export default {
         name: "Struct",

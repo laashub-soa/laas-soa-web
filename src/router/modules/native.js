@@ -14,19 +14,19 @@ const nativeRouter = {
   children: [
     {
       path: '/native/desinger',
-      component: () => import('@/views/operate/designer/Designer'),
+      component: () => import('@/views/native/designer/Designer'),
       name: '设计器',
       meta: {title: '设计器'},
     },
     {
       path: '/native/operate',
-      component: () => import('@/views/operate/operate/databoard/DataBoard'),
+      component: () => import('@/views/native/operate/Operate'),
       name: '操作台',
       meta: {title: '操作台'},
     },
     {
       path: '/native/open_data',
-      // component: () => import('@/views/operate/operate/databoard/DataBoard'),
+      component: () => import('@/views/native/open_data/OpenData'),
       name: '开放数据',
       meta: {title: '开放数据'},
     },

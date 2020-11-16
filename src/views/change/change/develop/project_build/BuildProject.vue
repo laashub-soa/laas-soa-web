@@ -21,8 +21,8 @@
      * 该tag需要供流程组优先使用
      *
      */
-    import executor from '@/views/operate/executor/executor.js'
-    import ExternalEmbedOperate from "@/views/operate/operate/ExternalEmbedOperate";
+    import executor from '@/views/native/executor/executor.js'
+    import ExternalEmbedOperate from "@/views/native/operate/ExternalEmbedOperate";
 
     export default {
         name: "BuildProject",

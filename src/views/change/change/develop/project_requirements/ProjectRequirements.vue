@@ -15,7 +15,7 @@
 </template>
 
 <script>
-    import ExternalEmbedOperate from "@/views/operate/operate/ExternalEmbedOperate";
+    import ExternalEmbedOperate from "@/views/native/operate/ExternalEmbedOperate";
     import WorkflowWrapper from "@/views/change/workflow/Wrapper";
 
     export default {
