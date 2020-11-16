@@ -30,18 +30,18 @@ const nativeRouter = {
       name: '开放数据',
       meta: {title: '开放数据'},
     },
-    {
-      path: '/native/executor',
-      component: () => import('@/views/nested/menu1/index'),
-      name: '执行者',
-      meta: {title: '执行者'},
-    },
-    {
-      path: '/native/business',
-      component: () => import('@/views/nested/menu1/index'),
-      name: '业务场',
-      meta: {title: '业务场'},
-    },
+    // {
+    //   path: '/native/executor',
+    //   component: () => import('@/views/nested/menu1/index'),
+    //   name: '执行器',
+    //   meta: {title: '执行器'},
+    // },
+    // {
+    //   path: '/native/business',
+    //   component: () => import('@/views/nested/menu1/index'),
+    //   name: '业务场',
+    //   meta: {title: '业务场'},
+    // },
   ]
 }
 

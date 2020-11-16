@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // 执行器
-
+const base_path = "/rest/operate/executor"
 
 /**
  * 执行业务
@@ -10,7 +10,7 @@ import axios from "axios";
  * @returns {Promise<any>}
  */
 async function execute_business(business_id, data_id, data_data_id) {
-  let net_request_result = await axios.post("/rest/operate/executor/data/insert", {
+  let net_request_result = await axios.post(base_path + "/data/insert", {
     data_id: data_id,
     data_data_id: data_data_id,
     business_id: business_id,

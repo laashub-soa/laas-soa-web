@@ -1,14 +1,16 @@
 import axios from "axios";
 
+const base_path = "/rest/native/business/data"
+
 async function select_(data_struct) {
-  let net_request_result = await axios.post("/rest/operate/business/data/select", data_struct);
+  let net_request_result = await axios.post(base_path + "/select", data_struct);
   if (!net_request_result || !net_request_result.status || net_request_result.status != 200 || !net_request_result.data) return;
   return net_request_result.data;
 }
 
 
 async function update_(data_struct) {
-  let net_request_result = await axios.post("/rest/operate/business/data/update", data_struct);
+  let net_request_result = await axios.post(base_path + "/update", data_struct);
   if (!net_request_result || !net_request_result.status || net_request_result.status != 200 || !net_request_result.data) return;
   return net_request_result.data;
 }
