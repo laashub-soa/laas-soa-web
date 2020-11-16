@@ -32,11 +32,12 @@ async function select_tree(service_type, request_data) {
     }
     return 0;
   });
-
+  console.log("original_tree_list: " + JSON.stringify(original_tree_list));
   // adapter list to tree
   const name_str = "name";
   const description_str = "description";
   const children_str = "children";
+
 
   function setup_tree(pid) {
     const cur_tree_level = [];

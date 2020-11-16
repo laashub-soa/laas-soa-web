@@ -181,6 +181,7 @@
             async onDrop(params) {
                 // save
                 try {
+                    if (params["node"]["id"] == params["target"]["id"]) return;
                     const insert_result = await directory.update_(this.service_type, {
                         "id": params["node"]["id"],
                         "pid": params["target"]["id"],
