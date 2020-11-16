@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // 执行器
-const base_path = "/rest/operate/executor"
+const base_path = "/rest/native/executor"
 
 /**
  * 执行业务

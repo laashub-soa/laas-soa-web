@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const base_path = "/rest/operate/cmdb/data"
+const base_path = "/rest/native/cmdb/data"
 
 async function select_(data_data) {
   let net_request_result = await axios.post(base_path + "/select", data_data);
