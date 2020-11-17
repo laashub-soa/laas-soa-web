@@ -78,7 +78,6 @@
         },
         async created() {
             await this.init_description();
-            console.log(is_open_data);
         }
     }
 </script>
