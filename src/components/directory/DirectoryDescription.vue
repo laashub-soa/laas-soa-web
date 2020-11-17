@@ -7,7 +7,7 @@
                  type="textarea">
         </i-input>
       </Col>
-      <Col span="1">
+      <Col span="1" v-if="!is_open_data">
         <Button @click="update_directory_description" style="height: 100%">
           <span style="writing-mode:vertical-rl">{{description_btn_name}}</span>
         </Button>
@@ -27,7 +27,11 @@
         props: {
             "directory_id": {
                 required: false,
-            }
+            },
+            is_open_data: {
+                default: false,
+                type: Boolean,
+            },
         },
         data() {
             return {
@@ -74,6 +78,7 @@
         },
         async created() {
             await this.init_description();
+            console.log(is_open_data);
         }
     }
 </script>

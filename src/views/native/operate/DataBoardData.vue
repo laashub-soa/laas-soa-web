@@ -1,6 +1,6 @@
 <template>
   <div>
-    <DirectoryDescription :directory_id="directory_id"></DirectoryDescription>
+    <DirectoryDescription :directory_id="directory_id" :is_open_data="is_open_data"></DirectoryDescription>
     <!--    <Button @click="init_table">Refresh</Button>-->
 
     <i-button @click="init_table">SEARCH</i-button>
@@ -61,6 +61,8 @@
 
             <!--@on-select-change="load_target_time_log"-->
           </i-col>
+
+
           <i-col span="18" style="background: #2b2b2b;color: white">
                                                         <pre v-for="item in data_status_details.log_list">
                                                             {{item}}
