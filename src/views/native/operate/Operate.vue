@@ -45,7 +45,9 @@
                         >
                           <DesignerDataData v-if="item.type=='data'"
                                             :directory_id="item.directory_id"
-                                            :directory_name="item.name" :split_value="split"></DesignerDataData>
+                                            :directory_name="item.name" :split_value="split"
+                                            :is_open_data="is_open_data"
+                          ></DesignerDataData>
                           <DesignerLogicData v-if="item.type=='logic'" :directory_id="item.directory_id"
                                              :directory_name="item.name"></DesignerLogicData>
 

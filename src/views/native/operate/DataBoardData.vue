@@ -38,7 +38,7 @@
     ></i-table>
     <!--data status show detail modal-->
     <!--width="100vw"-->
-    <modal v-model="data_status_details.display" >
+    <modal v-model="data_status_details.display">
       <p slot="header">
         <span>details</span>
       </p>
@@ -109,6 +109,10 @@
             split_value: {
                 default: 0.2,
             },
+            is_open_data: {
+                default: false,
+                type: Boolean,
+            },
         },
         components: {
             DirectoryDescription,
@@ -167,11 +171,11 @@
                         this._data.loading = false;
                         return;
                     }
-                    const column_width = component_table.calculate_table_column_width(false, this, data_struct_list.length+1);
+                    const column_width = component_table.calculate_table_column_width(false, this, data_struct_list.length + 1);
                     // id
                     this._data.column_keys.push('id');
                     this._data.columns.push({
-                        title:'id',
+                        title: 'id',
                         key: 'id'
                     });
                     // basic column
@@ -183,8 +187,10 @@
                         this._data.search.template.push({"label": meaning, "prop": code, "v_model": ""});
                     }
                     // operation column
-                    this._data.columns.push(component_table.editable_table_common_operation_column(this));
-
+                    console.log(this.is_open_data);
+                    if(!this.is_open_data){
+                        this._data.columns.push(component_table.editable_table_common_operation_column(this));
+                    }
                     this.$Message.success('query data data columns success');
                 } catch (e) {
                     console.log(e);

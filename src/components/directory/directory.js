@@ -121,21 +121,21 @@ async function select_tree(service_type, request_data) {
   if (!net_request_result || !net_request_result.status || net_request_result.status != 200 || !net_request_result.data) return;
   // 生成索引数据树
   const original_tree_list = net_request_result.data;
-  console.log("original_tree_list: ");
-  console.log(original_tree_list);
+  // console.log("original_tree_list: ");
+  // console.log(original_tree_list);
   const index_menu_tree = setup_index_menu_tree(original_tree_list);
-  console.log("index_menu_tree: ");
-  console.log(index_menu_tree);
+  // console.log("index_menu_tree: ");
+  // console.log(index_menu_tree);
   // 根据索引数据树生成界面数据树
   const index_data = {};
   for (let original_tree_list_item of original_tree_list) {
     index_data[parseInt(original_tree_list_item["id"])] = original_tree_list_item;
   }
-  console.log("index_data: ");
-  console.log(index_data);
+  // console.log("index_data: ");
+  // console.log(index_data);
   const page_menu_tree = setup_page_menu_tree(index_menu_tree, index_data);
-  console.log("page_menu_tree: ");
-  console.log(page_menu_tree);
+  // console.log("page_menu_tree: ");
+  // console.log(page_menu_tree);
   return page_menu_tree;
 }
 
