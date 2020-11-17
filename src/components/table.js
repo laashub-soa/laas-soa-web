@@ -49,7 +49,9 @@ function editable_table_common_column(component, title, key, column_width) {
       if (component._data.is_in_opt && component._data.opt_line == params.index) {
         let edit_value = "";
         if ("insert" == component._data.opt_name) {
-
+          if (params.column.key == "data_type") {
+            edit_value = "string";
+          }
         } else if ("update" == component._data.opt_name) {
           edit_value = component._data.data[params.index][params.column.key];
         }
@@ -157,6 +159,7 @@ function editable_table_common_operation_column(component) {
           },
           on: {
             click: () => {
+              debugger
               const cur_line_index = params.index;
               const cur_line_data = component._data.data[cur_line_index];
               cur_line_data['did'] = component.directory_id;
@@ -323,9 +326,13 @@ function init_insert_(component) {
   const temp_data_one = {};
   for (const item of component._data.columns) {
     const key = item["key"];
-    if (key && key != "") {
-      temp_data_one[key] = "";
+    if (!key || key == "") continue;
+    // data_type默认为string
+    let default_value = "";
+    if (key == "data_type") {
+      default_value = "string"
     }
+    temp_data_one[key] = default_value;
   }
   component._data.opt_line = component._data.data.length;
   component._data.data.push(temp_data_one);
