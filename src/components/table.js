@@ -159,7 +159,6 @@ function editable_table_common_operation_column(component) {
           },
           on: {
             click: () => {
-              debugger
               const cur_line_index = params.index;
               const cur_line_data = component._data.data[cur_line_index];
               cur_line_data['did'] = component.directory_id;

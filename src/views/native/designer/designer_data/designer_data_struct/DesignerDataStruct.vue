@@ -94,6 +94,7 @@
                     component_table.editable_table_common_column(this, "含义", "meaning", column_width),
                     component_table.editable_table_common_column(this, "数据类型", "data_type", column_width),
                     component_table.editable_table_common_column(this, "关联数据模型", "reference_type", column_width),
+                    component_table.editable_table_common_column(this, "默认值", "default_value", column_width),
                     component_table.editable_table_common_operation_column(this),// 操作
                     component_table.table_column_is_open_data(this),// 是否开放数据
                 ],
@@ -184,7 +185,7 @@
             },
         },
         async created() {
-            column_width = component_table.calculate_table_column_width(true, this, 4);
+            column_width = component_table.calculate_table_column_width(true, this, this._data.columns.length);
             await this.init_table();
             // await this.init_associate();
         }
