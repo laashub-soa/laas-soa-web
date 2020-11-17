@@ -164,6 +164,10 @@ function editable_table_common_operation_column(component) {
               if ("insert" == component._data.opt_name) {
                 component.insert_(component, cur_line_data);
               } else if ("update" == component._data.opt_name) {
+                // 是否修改字段名
+                const old_code = component._data.data_line_backup["code"];
+                if (old_code != cur_line_data["code"])
+                  cur_line_data["old_code"] = old_code;
                 component.update_(component, cur_line_data);
               }
             }
