@@ -33,7 +33,7 @@
     <i-table stripe border :columns="columns"
              :data="data"
              :loading="loading"
-             height="690"
+             height="620"
              border
     ></i-table>
     <!--data status show detail modal-->
