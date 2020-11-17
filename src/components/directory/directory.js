@@ -31,18 +31,22 @@ function setup_index_menu_tree(original_tree_list) {
     }
     return 0;
   });
+  // console.log("tree_result_1: ");
+  // console.log(tree_result_1);
   // 2、按照pid进行归拢
   let tree_result_2 = {};
   for (const original_tree_index in tree_result_1) {
     let original_tree_item = tree_result_1[original_tree_index];
-    const item_id = original_tree_item["id"];
-    const item_pid = original_tree_item["pid"];
+    const item_id = parseInt(original_tree_item["id"]);
+    const item_pid = parseInt(original_tree_item["pid"]);
     if (!(item_pid in tree_result_2)) {
       tree_result_2[item_pid] = [item_id];
     } else {
       tree_result_2[item_pid].push(item_id);
     }
   }
+  // console.log("tree_result_2: ");
+  // console.log(tree_result_2);
   // 3、pid合并
   let tree_result_3 = {};
   const tree_result_2_keys = Object.keys(tree_result_2).sort(function (last, next) {
@@ -78,6 +82,8 @@ function setup_index_menu_tree(original_tree_list) {
       tree_result_3[tree_result_2_key] = tree_result_3_value;
     }
   }
+  // console.log("tree_result_3: ");
+  // console.log(tree_result_3);
   return tree_result_3;
 }
 
@@ -85,12 +91,17 @@ function setup_page_menu_tree(index_menu_data, index_data) {
   const page_menu_tree = [];
   for (let index_menu_data_key in index_menu_data) {
     const index_menu_data_item = index_menu_data[index_menu_data_key];
-    const index_data_item = index_data[parseInt(index_menu_data_key)];
-    if (index_menu_data_key == -1) return setup_page_menu_tree(index_menu_data_item, index_data);
+    const index_data_item = index_data[index_menu_data_key];
+    if (!index_data_item) {
+      const next_page_menu_tree = setup_page_menu_tree(index_menu_data_item, index_data);
+      console.log(next_page_menu_tree);
+      page_menu_tree.push.apply(page_menu_tree, next_page_menu_tree);
+      continue;
+    }
     // 判断是否有子节点
     const cur_level_tree = {
-      "id": index_data_item["id"],
-      "pid": index_data_item["pid"],
+      "id": parseInt(index_data_item["id"]),
+      "pid": parseInt(index_data_item["pid"]),
       "name": index_data_item["name"],
       "description": index_data_item["name"],
       "addLeafNodeDisabled": true,
@@ -110,16 +121,20 @@ async function select_tree(service_type, request_data) {
   if (!net_request_result || !net_request_result.status || net_request_result.status != 200 || !net_request_result.data) return;
   // 生成索引数据树
   const original_tree_list = net_request_result.data;
-  console.log("original_tree_list: " + JSON.stringify(original_tree_list));
+  console.log("original_tree_list: ");
+  console.log(original_tree_list);
   const index_menu_tree = setup_index_menu_tree(original_tree_list);
-  console.log(JSON.stringify(index_menu_tree));
+  console.log("index_menu_tree: ");
+  console.log(index_menu_tree);
   // 根据索引数据树生成界面数据树
   const index_data = {};
   for (let original_tree_list_item of original_tree_list) {
-    index_data[original_tree_list_item["id"]] = original_tree_list_item;
+    index_data[parseInt(original_tree_list_item["id"])] = original_tree_list_item;
   }
+  console.log("index_data: ");
   console.log(index_data);
   const page_menu_tree = setup_page_menu_tree(index_menu_tree, index_data);
+  console.log("page_menu_tree: ");
   console.log(page_menu_tree);
   return page_menu_tree;
 }
