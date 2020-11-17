@@ -49,6 +49,7 @@ function editable_table_common_column(component, title, key, column_width) {
       if (component._data.is_in_opt && component._data.opt_line == params.index) {
         let edit_value = "";
         if ("insert" == component._data.opt_name) {
+
         } else if ("update" == component._data.opt_name) {
           edit_value = component._data.data[params.index][params.column.key];
         }
