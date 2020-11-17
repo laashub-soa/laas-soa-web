@@ -30,10 +30,10 @@
                              v-for="item in service_type_list"></Directory>
                 </div>
                 <div slot="right">
+                    <!--                          style="user-select:none;"-->
                     <Tabs v-model="tab_pane_cur" type="card"
                           @on-tab-remove="handleTabRemove"
                           @on-click="onClickTab" :animated="false"
-                          style="user-select:none;"
                           closable
                           :before-remove='beforeRemove'
                     >
