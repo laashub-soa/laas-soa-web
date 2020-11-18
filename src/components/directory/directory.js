@@ -144,7 +144,7 @@ async function select_tree(service_type, request_data) {
  * @returns {Promise<void>}
  */
 async function select_data_model_level() {
-  let net_request_result = await axios.post(base_path + "data" + "/directory/select", request_data);
+  // await select_("data",{"is_"})
 }
 
 

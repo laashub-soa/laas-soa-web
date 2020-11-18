@@ -62,6 +62,7 @@ const developRouter = {
         {
           path: '/develop/project_config_file/update_project_config_file',
           name: '修改项目配置文件',
+          component: () => import('@/views/develop/project_config_file/UpdateProjectConfigFile'),
           meta: {title: '修改项目配置文件'}
         },
       ]
