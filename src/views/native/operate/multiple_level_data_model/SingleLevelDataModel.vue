@@ -5,7 +5,7 @@
 </template>
 
 <script>
-    import SingleLevelSingleDataModel from '@/views/native/operate/multiple_level_data_model/SingleLevelSingleDataModel'
+    import SingleLevelSingleDataModel from '@/views/native/operate/multiple_level_data_model/SingleLevelSingleDataModel.vue'
 
     export default {
         name: "SingleLevelDataModel" // 单层数据模型

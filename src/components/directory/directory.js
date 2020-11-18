@@ -139,6 +139,15 @@ async function select_tree(service_type, request_data) {
   return page_menu_tree;
 }
 
+/**
+ * 查询数据模型
+ * @returns {Promise<void>}
+ */
+async function select_data_model_level() {
+  let net_request_result = await axios.post(base_path + "data" + "/directory/select", request_data);
+}
+
+
 async function insert_(service_type, data_directory) {
   service_type = reset_service_type(service_type)
   let net_request_result = await axios.post(base_path + service_type + "/directory/insert", data_directory);

@@ -12,16 +12,10 @@ const developRouter = {
     // icon: 'nested'
   },
   children: [
-    // {
-    //   path: '/change/change/develop/project_requirements',
-    //   name: '项目需求',
-    //   component: () => import('@/views/change/change/develop/project_requirements/ProjectRequirements'),
-    //   meta: {title: '项目需求'}
-    // },
     {
       path: '/develop/project_build',
       name: '项目构建',
-      component: () => import('@/views/change/index'),
+      component: () => import('@/views/develop/index'),
       redirect: '/develop/project_build/build_project',
       meta: {title: '项目构建'},
       children: [
@@ -29,19 +23,19 @@ const developRouter = {
         {
           path: '/develop/project_build/config_git_repository_data',
           name: '配置代码仓库数据',
-          component: () => import('@/views/change/change/develop/project_build/ConfigCodeRepositoryData'),
+          component: () => import('@/views/develop/project_build/ConfigCodeRepositoryData'),
           meta: {title: '配置代码仓库数据'}
         },
         {
           path: '/develop/project_build/config_docker_repository_data',
           name: '配置docker仓库数据',
-          component: () => import('@/views/change/change/develop/project_build/ConfigDockerRepositoryData'),
+          component: () => import('@/views/develop/project_build/ConfigDockerRepositoryData'),
           meta: {title: '配置docker仓库数据'}
         },
         {
           path: '/develop/project_build/config_project_build_info_data',
           name: '配置项目构建信息数据',
-          component: () => import('@/views/change/change/develop/project_build/ConfigProjectBuildInfoData'),
+          component: () => import('@/views/develop/project_build/ConfigProjectBuildInfoData'),
           meta: {title: '配置项目构建信息数据'}
         },
         // // 指令
@@ -55,7 +49,7 @@ const developRouter = {
         {
           path: '/develop/project_build/build_project',
           name: '构建项目',
-          component: () => import('@/views/change/change/develop/project_build/BuildProject'),
+          component: () => import('@/views/develop/project_build/BuildProject'),
           meta: {title: '构建项目'}
         },
       ]

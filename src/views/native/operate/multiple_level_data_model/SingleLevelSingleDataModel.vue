@@ -1,6 +1,9 @@
 <template>
   <div>
-    <Directory ervice_type="data"></Directory>
+    <!--第一层第一个数据模型-->
+    <div>
+      <Directory ></Directory>
+    </div>
   </div>
 </template>
 
@@ -10,6 +13,9 @@
     export default {
         name: "SingleLevelSingleDataModel" // 单层单个数据模型
         , components: {Directory}
+        ,methods:{
+            async
+        }
     }
 </script>
 
