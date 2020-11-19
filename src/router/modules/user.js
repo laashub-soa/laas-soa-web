@@ -13,19 +13,19 @@ const userRouter = {
   children: [
     {
       path: '/user/user',
-      component: () => import('@/views/nested/menu1/index'),
+      // component: () => import('@/views/nested/menu1/index'),
       name: '用户',
       meta: {title: '用户'},
     },
     {
       path: '/user/role',
-      component: () => import('@/views/native/operate/Operate'),
+      // component: () => import('@/views/native/operate/Operate'),
       name: '角色',
       meta: {title: '角色'},
     },
     {
       path: '/user/permission',
-      component: () => import('@/views/nested/menu1/index'),
+      // component: () => import('@/views/nested/menu1/index'),
       name: '权限',
       meta: {title: '权限'},
     },
