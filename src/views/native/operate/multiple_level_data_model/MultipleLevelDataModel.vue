@@ -1,11 +1,10 @@
 <template>
   <div>
-    <SingleLevelDataModel></SingleLevelDataModel>
+
   </div>
 </template>
 
 <script>
-    import directory from '@/components/directory/directory.js'
     import SingleLevelDataModel from '@/views/native/operate/multiple_level_data_model/SingleLevelDataModel.vue'
 
     export default {
