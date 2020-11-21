@@ -3,7 +3,7 @@
 </template>
 
 <script>
-   import
+   // import
     export default {
         name: "DataModelLevel_3"
     }

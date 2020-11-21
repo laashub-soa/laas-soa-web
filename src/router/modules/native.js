@@ -30,12 +30,12 @@ const nativeRouter = {
       name: '开放数据',
       meta: {title: '开放数据'},
     },
-    {
-      path: '/native/multiple_level_data_model',
-      component: () => import('@/views/native/operate/multiple_level_data_model/MultipleLevelDataModel'),
-      name: '多层数据模型',
-      meta: {title: '多层数据模型'},
-    },
+    // {
+    //   path: '/native/multiple_level_data_model',
+    //   component: () => import('@/views/native/operate/multiple_level_data_model/MultipleLevelDataModel'),
+    //   name: '多层数据模型',
+    //   meta: {title: '多层数据模型'},
+    // },
     // {
     //   path: '/native/executor',
     //   component: () => import('@/views/nested/menu1/index'),
