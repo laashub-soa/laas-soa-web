@@ -25,31 +25,26 @@
     </div>
 
     <!--数据区域-->
-    <split v-if="is_show_data_area">
-      <div slot="left"> <!--数据树-->
+    <row>
+      <i-col :span="data_tree_area_percent" v-if="data_tree_area_percent!='0'"><!--数据树-->
         数据树
-      </div>
-      <div slot="right"> <!--数据-->
-        <div>
-          <i-table
-            stripe border
-            :columns="columns" :data="data" :loading="loading"
-          ></i-table>
-          <div style="margin: 10px;overflow: hidden">
-            <div style="float: right;">
-              <page show-sizer :total="page.total" :current="1"
-                    @on-change="function(current){page.current = current;init_table();}"
-                    @on-page-size-change="function(page_size){page.page_size = page_size;init_table();}"
-              />
-            </div>
+      </i-col>
+      <i-col :span="data_data_area_percent" v-if="data_data_area_percent!='0'">
+        <i-table
+          stripe border
+          :columns="columns" :data="data" :loading="loading"
+        ></i-table>
+        <div style="margin: 10px;overflow: hidden">
+          <div style="float: right;">
+            <page show-sizer :total="page.total" :current="1"
+                  @on-change="function(current){page.current = current;init_table();}"
+                  @on-page-size-change="function(page_size){page.page_size = page_size;init_table();}"
+            />
           </div>
         </div>
-      </div>
-    </split>
-    <div v-if="!is_show_data_area"> <!--数据树-->
-      数据树
-    </div>
 
+      </i-col>
+    </row>
     <div>
     </div>
   </div>
@@ -83,7 +78,8 @@
     },
     data() {
       return {
-        is_show_data_area: true,
+        data_tree_area_percent: 0,
+        data_data_area_percent: 24,
         column_keys: [],
         columns: [],
         default_values: {},
@@ -125,39 +121,47 @@
             this._data.loading = false;
             return;
           }
-          const column_width = "10%";
-          // id
-          this._data.column_keys.push('id');
-          this._data.columns.push({
-            title: 'id',
-            key: 'id',
-            width: 50
-          });
           // basic column
+          let is_have_delete_associate_column = false; // 是否剔除过 标记为关联模型的列
+          let is_have_delete_data_type_is_array_column = false;  //是否剔除过 data_type不为string的列
           for (const data_struct of data_struct_list) {
             // 剔除 标记为关联模型的列
-            if (data_struct["data_type"] != null) {
+            if (data_struct["reference_type"] != "") {
+              is_have_delete_associate_column = true;
               continue;
             }
             // 剔除data_type不为string的列
             if (data_struct["data_type"] != "string") {
+              is_have_delete_data_type_is_array_column = true;
               continue;
             }
             const code = data_struct["code"];
             const meaning = data_struct["meaning"];
             this._data.default_values[code] = data_struct["default_value"];
             this._data.column_keys.push(code);
-            this._data.columns.push(component_table.editable_table_common_column(this, meaning, code, column_width));
+            this._data.columns.push(component_table.editable_table_common_column(this, meaning, code));
             this._data.search.template.push({"label": meaning, "prop": code, "v_model": ""});
           }
-          if (this._data.columns.length > 1) {
+          if (is_have_delete_data_type_is_array_column) {
+            this._data.data_tree_area_percent += 12;
+            this._data.data_data_area_percent -= 12;
+          }
+          if (this._data.columns.length > 0) {
+            // id
+            this._data.column_keys = ["id"].concat(this._data.column_keys);
+            this._data.columns = [{
+              title: 'id',
+              key: 'id',
+              width: 50
+            }].concat(this._data.columns);
             // operation column
             if (!this.is_open_data) {
               this._data.columns.push(component_table.editable_table_common_operation_column(this));
             }
           } else {
             // 隐藏 数据区域
-            this._data.is_show_data_area = false;
+            this._data.data_tree_area_percent += 12;
+            this._data.data_data_area_percent -= 12;
           }
           this.$Message.success('query data data columns success');
         } catch (e) {
