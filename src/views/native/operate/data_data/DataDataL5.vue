@@ -1,6 +1,7 @@
 <template>
   <div>
-    <DataDataL4></DataDataL4>
+
+
   </div>
 </template>
 
@@ -10,6 +11,12 @@
   export default {
     name: "DataData"
     , components: {DataDataL4}
+    , props: {
+      "data_data_pre_constraint": { // 数据模型层级前置约束
+        type: Object,
+        default: null, // 事先定义好数据
+      },
+    }
   }
 </script>
 

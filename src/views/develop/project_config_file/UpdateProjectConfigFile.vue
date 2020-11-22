@@ -1,6 +1,6 @@
 <template>
   <div>
-    <DataData :data_model_level_pre_constraint="data_model_level_pre_constraint"></DataData>
+    <DataData :data_data_pre_constraint="data_data_pre_constraint"></DataData>
   </div>
 </template>
 
@@ -14,7 +14,7 @@
     }
     , data() {
       return {
-        data_model_level_pre_constraint: [{"24": [{"25": ["26"]}]}]
+        data_data_pre_constraint: [{"24": [{"25": ["26"]}]}]
       }
     }
   }
