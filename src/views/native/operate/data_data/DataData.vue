@@ -279,8 +279,6 @@
       await this.init_table();
     }
   }
-  // TODO bug: data operation need more check, there can be only operation at a time
-  // TODO improvement: insert/update/delete data operation when across the multi data, so it also need refactor the backend code
 </script>
 
 <style>
