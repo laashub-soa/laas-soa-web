@@ -1,11 +1,15 @@
 <template>
-
+  <div>
+    <DataDataL1></DataDataL1>
+  </div>
 </template>
 
 <script>
-  // import
+  import DataDataL1 from '@/views/native/operate/data_data/DataDataL1.vue'
+
   export default {
-    name: "DataDataL2"
+    name: "DataData"
+    , components: {DataDataL1}
   }
 </script>
 

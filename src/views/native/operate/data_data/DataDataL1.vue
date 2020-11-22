@@ -1,9 +1,9 @@
 <template>
-
+  <div>
+  </div>
 </template>
 
 <script>
-  // import
   export default {
     name: "DataDataL1"
   }
