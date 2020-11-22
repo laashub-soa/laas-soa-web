@@ -1,8 +1,9 @@
 <template>
   <div>
+    <DataData :directory_id="directory_id"></DataData>
     <!--    <div v-for="item in data_data_pre_constraint"> &lt;!&ndash; 多列 &ndash;&gt;-->
     <!--      <div v-for="item in data_data_pre_constraint"> &lt;!&ndash; 多行 &ndash;&gt;-->
-    <DataData :data_data_id="data_data_id"></DataData>
+
     <!--      </div>-->
     <!--    </div>-->
   </div>
@@ -22,7 +23,7 @@
     }
     , data() {
       return {
-        data_data_id: 24
+        directory_id: 24
       }
     }
     , methods: {

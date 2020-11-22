@@ -61,19 +61,11 @@ const developRouter = {
       ]
     },
     {
-      path: '/develop/project_config_file',
-      name: '项目配置文件',
-      meta: {title: '项目配置文件'},
-      children: [
-        {
-          path: '/develop/project_config_file/update_project_config_file',
-          name: '修改项目配置文件',
-          component: () => import('@/views/develop/project_config_file/UpdateProjectConfigFile'),
-          meta: {title: '修改项目配置文件'}
-        },
-      ]
+      path: '/develop/update_project_config_file',
+      name: '修改项目配置文件',
+      component: () => import('@/views/develop/project_config_file/UpdateProjectConfigFile'),
+      meta: {title: '修改项目配置文件'}
     },
-
     {
       path: '/develop/project_deploy',
       name: '项目部署',
