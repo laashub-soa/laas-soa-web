@@ -23,20 +23,31 @@
         </row>
       </i-form>
     </div>
-    <i-table stripe border :columns="columns"
-             :data="data"
-             :loading="loading"
-             border
-    ></i-table>
-    <div style="margin: 10px;overflow: hidden">
-      <div style="float: right;">
-        <page show-sizer :total="page.total" :current="1"
-              @on-change="function(current){page.current = current;init_table();}"
-              @on-page-size-change="function(page_size){page.page_size = page_size;init_table();}"
-        />
-      </div>
-    </div>
 
+    <split>
+      <div slot="left"> <!--数据树-->
+
+      </div>
+      <div slot="right"> <!--数据-->
+        <div>
+          <i-table
+            stripe border
+            :columns="columns" :data="data" :loading="loading"
+          ></i-table>
+          <div style="margin: 10px;overflow: hidden">
+            <div style="float: right;">
+              <page show-sizer :total="page.total" :current="1"
+                    @on-change="function(current){page.current = current;init_table();}"
+                    @on-page-size-change="function(page_size){page.page_size = page_size;init_table();}"
+              />
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </split>
+    <div>
+    </div>
   </div>
 </template>
 
@@ -120,7 +131,7 @@
             this._data.loading = false;
             return;
           }
-          const column_width = 100;
+          const column_width = "10%";
           // id
           this._data.column_keys.push('id');
           this._data.columns.push({
@@ -197,37 +208,37 @@
           this._data.loading = false;
         }
       },
-      async init_associate() {
-        // trigger
-        const designer_data_logic_trigger_list = await designer_data_logic_trigger.select_({'data_id': this.directory_id});
-        for (const item of designer_data_logic_trigger_list) {
-          this._data.associate.trigger[item["type"]].push(item["logic_id"] + ":" + item["func_name"]);
-        }
-      },
-      async init_data_logic_trigger_status() {
-        if (!this._data.data || this._data.data.length < 1) return;
-        const data_id = this.directory_id;
-        let data_data_data_id_list_str = "";
-        for (const item of this._data.data) {
-          const data_data_id = item["id"];
-          data_data_data_id_list_str += "'" + data_id + "_" + data_data_id + "', ";
-        }
-        data_data_data_id_list_str = data_data_data_id_list_str.substring(0, data_data_data_id_list_str.length - 2);
-        try {
-          let net_request_result = await designer_data_logic_trigger.select_batch_status({"data_data_data_id_list_str": data_data_data_id_list_str});
-          this._data.data_status = net_request_result;
-          this.$Message.success('query data logic trigger success');
-        } catch (e) {
-          console.log(e);
-          this.$Message.error(e.response.data);
-        }
-      },
+      // async init_associate() {
+      //   // trigger
+      //   const designer_data_logic_trigger_list = await designer_data_logic_trigger.select_({'data_id': this.directory_id});
+      //   for (const item of designer_data_logic_trigger_list) {
+      //     this._data.associate.trigger[item["type"]].push(item["logic_id"] + ":" + item["func_name"]);
+      //   }
+      // },
+      // async init_data_logic_trigger_status() {
+      //   if (!this._data.data || this._data.data.length < 1) return;
+      //   const data_id = this.directory_id;
+      //   let data_data_data_id_list_str = "";
+      //   for (const item of this._data.data) {
+      //     const data_data_id = item["id"];
+      //     data_data_data_id_list_str += "'" + data_id + "_" + data_data_id + "', ";
+      //   }
+      //   data_data_data_id_list_str = data_data_data_id_list_str.substring(0, data_data_data_id_list_str.length - 2);
+      //   try {
+      //     let net_request_result = await designer_data_logic_trigger.select_batch_status({"data_data_data_id_list_str": data_data_data_id_list_str});
+      //     this._data.data_status = net_request_result;
+      //     this.$Message.success('query data logic trigger success');
+      //   } catch (e) {
+      //     console.log(e);
+      //     this.$Message.error(e.response.data);
+      //   }
+      // },
       init_insert_() {
         component_table.init_insert_(this);
       },
       async insert_(component, data_data) {
         try {
-          if (!await this.associate_data_logic_event(component, data_data, 'insert')) return;
+          // if (!await this.associate_data_logic_event(component, data_data, 'insert')) return;
           const insert_result = await designer_data_data.insert_(data_data);
           component.$Message.success('insert data data success');
           // await component.trigger_engine(component, 'insert', insert_result);
@@ -239,7 +250,7 @@
       },
       async update_(component, data_data) {
         try {
-          if (!await this.associate_data_logic_event(component, data_data, 'update')) return;
+          // if (!await this.associate_data_logic_event(component, data_data, 'update')) return;
           await designer_data_data.update_(data_data);
           component.$Message.success('update data data success');
           await component.trigger_engine(component, 'update', data_data['id']);
@@ -251,7 +262,7 @@
       },
       async delete_(component, data_data) {
         try {
-          if (!await this.associate_data_logic_event(component, data_data, 'delete')) return;
+          // if (!await this.associate_data_logic_event(component, data_data, 'delete')) return;
           await designer_data_data.delete_(data_data);
           component.$Message.success('delete data data success');
           await component.trigger_engine(component, 'delete', data_data['id']);
@@ -260,152 +271,6 @@
           console.log(e.response.data);
           component.$Message.error(e.response.data);
         }
-      },
-      async associate_data_logic_event(component, data_data, data_event_type) {
-        return true;
-        // if (component.associate.trigger[component.opt_name].length < 1) return true; // data event without logic
-
-        component._data.data_event_2_logic.data = [];
-        // for (const item of component._data.associate.trigger[data_event_type]) {
-        //     component._data.data_event_2_logic.data.push({
-        //         "value": item,
-        //         "label": item,
-        //     });
-        // }
-        const result = await new Promise(function (resolve, reject) {
-          component.$Modal.confirm({
-            onOk: () => {
-              if (!component._data.data_event_2_logic.cur_choose.value || component._data.data_event_2_logic.cur_choose.value == "") {
-                resolve(false);
-              }
-              resolve(true);
-            },
-            onCancel: () => {
-              resolve(false);
-            },
-            render: (h) => {
-              return h('cascader', {
-                props: {
-                  "mask-closable": false,
-                  value: component._data.data_event_2_logic.cur_choose.value,
-                  data: component._data.data_event_2_logic.data,
-                },
-                on: {
-                  'on-change': function (value, selectedData) {
-                    component._data.data_event_2_logic.cur_choose.value = value;
-                  }
-                },
-              })
-            }
-          })
-        });
-        if (!result) {
-          component.$Message.error("you must choose and logic_func when the data_event adapter an logic_func");
-        }
-        return result;
-
-      },
-      async trigger_engine(component, type, data_data_id) { // insert, update, delete
-        try {
-          const request_data = {
-            "data_id": component.directory_id,
-            "data_data_id": data_data_id,
-            "type": type,
-          };
-
-          if (!component._data.data_event_2_logic.cur_choose.value || component._data.data_event_2_logic.cur_choose.value.length <= 0) return;
-          const logic_func_name = component._data.data_event_2_logic.cur_choose.value[0];
-          const logic_func_name_arr = logic_func_name.split(":");
-          request_data["logic_id"] = logic_func_name_arr[0];
-          request_data["func_name"] = logic_func_name_arr[1];
-          // await engine.trigger(request_data);
-          component.$Message.success('trigger_engine success');
-        } catch (e) {
-          console.log(e.response.data);
-          component.$Message.error(e.response.data);
-        }
-      },
-      async select_engine_data_logic_trigger_status_details_status(component, data_data_id) {
-        component._data.data_status_details.tree = [];
-        try {
-          let net_request_result = await engine.select_engine_data_logic_trigger_status_details_status({
-            'data_id': component.directory_id,
-            'data_data_id': data_data_id,
-          });
-
-          `
-data_event:1(1):insert:(time)
-    logic:1:test:(time)
-        START:(time)
-        RUNNING:(time)
-        FINISH:(time)
-        `
-          let last_data_even_type = "";
-          let tree_level_data_event;
-          let tree_level_logic_children;
-          // component._data.data_status_details.tree = new Tree([]);
-          const tree_list = [];
-          let id_temp = 1;
-          while (net_request_result.length > 0) {
-            let item = net_request_result.splice(0, 1)[0];
-            const data_event_type = item["data_event_type"];
-            if (last_data_even_type != data_event_type) {
-              last_data_even_type = data_event_type;
-              tree_level_logic_children = [];
-              if (tree_level_data_event) {
-                tree_list.push(tree_level_data_event);
-              }
-              tree_level_data_event = null;
-            }
-            if (!tree_level_data_event) {
-              tree_level_data_event = {
-                'id': id_temp++,
-                "name": "data_event:{{data_id}}({{data_data_id}}):{{data_event_type}}:({{create_time_str}})".format(item),
-                "tree_level_type": "data_event",
-                "tree_level_data": item,
-                "spread": true,
-                "children": [{
-                  'id': id_temp++,
-                  "name": "logic:{{logic_id}}:{{func_name}}:({{create_time_str}})".format(item),
-                  "tree_level_type": "logic",
-                  "tree_level_data": item,
-                  "spread": true,
-                  "children": tree_level_logic_children,
-                }]
-              };
-            }
-            tree_level_logic_children.push({
-              'id': id_temp++,
-              "name": "{{status}}:({{create_time_str}})".format(item),
-              "tree_level_type": "data_status",
-              "tree_level_data": item,
-            });
-          }
-          tree_list.push(tree_level_data_event);
-          component._data.data_status_details_tree = new Tree(tree_list);
-          // component.$Message.success('select engine data logic trigger status details status success');
-        } catch (e) {
-          console.log(e.response.data);
-          component.$Message.error(e.response.data);
-        }
-      },
-      async select_engine_data_logic_trigger_status_details_log(component, tree_level_type, tree_level_data) {
-        tree_level_data["data_id"] = component.directory_id;
-        try {
-          tree_level_data['data_event'] = tree_level_type;
-          const net_request_result = await engine.select_engine_data_logic_trigger_status_details_log(tree_level_data)
-          this._data.data_status_details.log_list = [];
-          for (const item of net_request_result) {
-            this._data.data_status_details.log_list.push(item["log"]);
-          }
-          // component.$Message.success('select engine data logic trigger status details log success');
-        } catch (e) {
-          console.log(e.response.data);
-          component.$Message.error(e.response.data);
-        }
-      },
-      async onClickEngineDataLogicDetailStatusTree(params) {
-        await this.select_engine_data_logic_trigger_status_details_log(this, params.tree_level_type, params.tree_level_data);
       },
     },
     async created() {

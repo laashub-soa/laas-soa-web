@@ -94,7 +94,7 @@ function setup_page_menu_tree(index_menu_data, index_data) {
     const index_data_item = index_data[index_menu_data_key];
     if (!index_data_item) {
       const next_page_menu_tree = setup_page_menu_tree(index_menu_data_item, index_data);
-      console.log(next_page_menu_tree);
+      // console.log(next_page_menu_tree);
       page_menu_tree.push.apply(page_menu_tree, next_page_menu_tree);
       continue;
     }

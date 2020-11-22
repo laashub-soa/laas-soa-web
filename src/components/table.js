@@ -33,12 +33,11 @@ function calculate_table_column_width(is_in_designer, component, column_number) 
   return (right_window_width - editable_table_common_operation_column_width - table_column_operation_status_width_temp - nav_area_width) / column_number;
 }
 
-function editable_table_common_column(component, title, key, column_width) {
+function editable_table_common_column(component, title, key) {
   return {
     title: title,
     key: key,
     sortable: true,
-    width: column_width,
     // fixed: 'left',
     align: 'center',
     titleHtml: ' <i class="ivu-icon ivu-icon-edit"></i>',
