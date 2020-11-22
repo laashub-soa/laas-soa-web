@@ -1,9 +1,8 @@
 <template>
   <div>
-    <DirectoryDescription :directory_id="directory_id" :is_open_data="is_open_data"></DirectoryDescription>
+<!--    <DirectoryDescription :directory_id="directory_id" :is_open_data="is_open_data"></DirectoryDescription>-->
     <i-button @click="init_table">SEARCH</i-button>
     <i-button @click="init_insert_">ADD</i-button>
-
     <!--search area-->
     <divider orientation="left" style="font-size: 12px;">
       <i-button
@@ -27,40 +26,8 @@
     <i-table stripe border :columns="columns"
              :data="data"
              :loading="loading"
-             height="620"
              border
     ></i-table>
-    <!--data status show detail modal-->
-    <modal v-model="data_status_details.display">
-      <p slot="header">
-        <span>details</span>
-      </p>
-      <div>
-        <row>
-          <i-col span="6">
-            <vue-tree-list
-              @click="onClickEngineDataLogicDetailStatusTree"
-              :model="data_status_details_tree"
-              default-tree-node-name="new"
-              default-leaf-node-name="new"
-              v-bind:default-expanded="true">
-              <span class="icon" slot="addTreeNodeIcon"></span>
-              <span class="icon" slot="addLeafNodeIcon"></span>
-              <span class="icon" slot="editNodeIcon"></span>
-              <span class="icon" slot="delNodeIcon"></span>
-              <span class="icon" slot="leafNodeIcon"></span>
-              <span class="icon" slot="treeNodeIcon"></span>
-            </vue-tree-list>
-          </i-col>
-          <i-col span="18" style="background: #2b2b2b;color: white">
-                                                        <pre v-for="item in data_status_details.log_list">
-                                                            {{item}}
-                                                        </pre>
-          </i-col>
-        </row>
-      </div>
-      <div slot="footer"></div>
-    </modal>
     <div style="margin: 10px;overflow: hidden">
       <div style="float: right;">
         <page show-sizer :total="page.total" :current="1"
@@ -79,8 +46,6 @@
   import designer_data_struct from "@/views/native/designer/designer_data/designer_data_struct/designer_data_struct";
   import designer_data_data from "@/views/native/operate/data_board_data";
   import component_table from "@/components/table";
-  // import designer_data_logic_trigger from "../../designer/designer_data_logic_trigger";
-  // import engine from "./engine";
   export default {
     name: "DataData",
     props: {
@@ -153,7 +118,7 @@
             this._data.loading = false;
             return;
           }
-          const column_width = component_table.calculate_table_column_width(false, this, data_struct_list.length + 1);
+          const column_width = 100;
           // id
           this._data.column_keys.push('id');
           this._data.columns.push({

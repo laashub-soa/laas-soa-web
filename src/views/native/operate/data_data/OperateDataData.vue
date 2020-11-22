@@ -23,7 +23,8 @@
     }
     , data() {
       return {
-        directory_id: 24
+        directory_id: 25
+        // directory_id: 24
       }
     }
     , methods: {
