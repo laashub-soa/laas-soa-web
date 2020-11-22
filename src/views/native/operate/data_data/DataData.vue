@@ -1,6 +1,6 @@
 <template>
   <div>
-<!--    <DirectoryDescription :directory_id="directory_id" :is_open_data="is_open_data"></DirectoryDescription>-->
+    <!--    <DirectoryDescription :directory_id="directory_id" :is_open_data="is_open_data"></DirectoryDescription>-->
     <i-button @click="init_table">SEARCH</i-button>
     <i-button @click="init_insert_">ADD</i-button>
     <!--search area-->
@@ -46,6 +46,7 @@
   import designer_data_struct from "@/views/native/designer/designer_data/designer_data_struct/designer_data_struct";
   import designer_data_data from "@/views/native/operate/data_board_data";
   import component_table from "@/components/table";
+
   export default {
     name: "DataData",
     props: {
@@ -69,6 +70,7 @@
       return {
         column_keys: [],
         columns: [],
+        default_values: {},
         data: [],
         data_status: [],
         data_status_details_tree: new Tree([]),
@@ -123,12 +125,14 @@
           this._data.column_keys.push('id');
           this._data.columns.push({
             title: 'id',
-            key: 'id'
+            key: 'id',
+            width: 50
           });
           // basic column
           for (const item of data_struct_list) {
             const code = item["code"];
             const meaning = item["meaning"];
+            this._data.default_values[code] = item["default_value"];
             this._data.column_keys.push(code);
             this._data.columns.push(component_table.editable_table_common_column(this, meaning, code, column_width));
             this._data.search.template.push({"label": meaning, "prop": code, "v_model": ""});
