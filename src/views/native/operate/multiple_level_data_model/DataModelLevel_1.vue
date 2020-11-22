@@ -189,7 +189,6 @@
             this._data.search.template.push({"label": meaning, "prop": code, "v_model": ""});
           }
           // operation column
-          console.log(this.is_open_data);
           if (!this.is_open_data) {
             this._data.columns.push(component_table.editable_table_common_operation_column(this));
           }

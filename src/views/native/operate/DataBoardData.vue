@@ -189,7 +189,6 @@
                         this._data.search.template.push({"label": meaning, "prop": code, "v_model": ""});
                     }
                     // operation column
-                    console.log(this.is_open_data);
                     if (!this.is_open_data) {
                         this._data.columns.push(component_table.editable_table_common_operation_column(this));
                     }
@@ -471,7 +470,7 @@ data_event:1(1):insert:(time)
 </script>
 
 <style>
-  @import '/node_modules/view-design/dist/styles/iview.css';
+  @import '../../../../node_modules/view-design/dist/styles/iview.css';
 
   .ivu-split-trigger-vertical {
     width: 2px;

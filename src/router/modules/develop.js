@@ -5,13 +5,19 @@ import Layout from '@/layout'
 const developRouter = {
   path: '/develop',
   component: Layout,
-  redirect: '/develop/project_build',
+  redirect: '/develop/project',
   name: '研发领域',
   meta: {
     title: '研发领域',
     // icon: 'nested'
   },
   children: [
+    {
+      path: '/develop/project',
+      name: '项目',
+      component: () => import('@/views/develop/Project'),
+      meta: {title: '项目'}
+    },
     {
       path: '/develop/project_build',
       name: '项目构建',

@@ -194,7 +194,7 @@
 </script>
 
 <style>
-  @import '../../../../node_modules/view-design/dist/styles/iview.css';
+  @import '/node_modules/view-design/dist/styles/iview.css';
 
   .ivu-split-trigger-vertical {
     width: 2px;
