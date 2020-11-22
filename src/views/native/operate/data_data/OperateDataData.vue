@@ -18,7 +18,7 @@
     , props: {
       "data_data_pre_constraint": { // 数据模型层级前置约束
         type: Array,
-        default: null, // 事先定义好数据
+        default: null
       },
     }
     , data() {

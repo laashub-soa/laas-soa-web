@@ -80,6 +80,9 @@
       return {
         data_tree_area_percent: 0,
         data_data_area_percent: 24,
+        is_have_delete_associate_column: false, // 是否剔除过 标记为关联模型的列
+        is_have_delete_data_type_is_array_column: false, //是否剔除过 data_type不为string的列
+        data_struct: [],
         column_keys: [],
         columns: [],
         default_values: {},
@@ -117,22 +120,21 @@
         this._data.loading = true;
         try {
           const data_struct_list = await designer_data_struct.select_({'did': this.directory_id});
+          this._data.data_struct = data_struct_list;
           if (data_struct_list < 1) {
             this._data.loading = false;
             return;
           }
           // basic column
-          let is_have_delete_associate_column = false; // 是否剔除过 标记为关联模型的列
-          let is_have_delete_data_type_is_array_column = false;  //是否剔除过 data_type不为string的列
           for (const data_struct of data_struct_list) {
             // 剔除 标记为关联模型的列
             if (data_struct["reference_type"] != "") {
-              is_have_delete_associate_column = true;
+              this._data.is_have_delete_associate_column = true;
               continue;
             }
             // 剔除data_type不为string的列
             if (data_struct["data_type"] != "string") {
-              is_have_delete_data_type_is_array_column = true;
+              this._data.is_have_delete_data_type_is_array_column = true;
               continue;
             }
             const code = data_struct["code"];
@@ -142,7 +144,7 @@
             this._data.columns.push(component_table.editable_table_common_column(this, meaning, code));
             this._data.search.template.push({"label": meaning, "prop": code, "v_model": ""});
           }
-          if (is_have_delete_data_type_is_array_column) {
+          if (this._data.is_have_delete_data_type_is_array_column) {
             this._data.data_tree_area_percent += 12;
             this._data.data_data_area_percent -= 12;
           }
@@ -254,12 +256,24 @@
         }
       }
       , async init_data_tree() { // 初始化数据树
-        // TODO
+        if (!this._data.is_have_delete_data_type_is_array_column) return;
+        const tree_data = [];
+        for (let data_struct_item of this._data.data_struct) {
+          let data_type = data_struct_item["data_type"];
+          if (data_type == "string") continue;
+          if (data_type = "list_string") {
+            for (let data_item of this._data.data) {
+
+            }
+
+          }
+        }
       }
     },
     async created() {
       await this.init_table_column();
       await this.init_table();
+      await this.init_data_tree();
     }
   }
 </script>
