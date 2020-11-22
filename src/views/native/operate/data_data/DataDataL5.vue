@@ -1,7 +1,6 @@
 <template>
   <div>
-
-
+    <DataDataL4 v-for="item in data_data_pre_constraint"></DataDataL4>
   </div>
 </template>
 
@@ -17,6 +16,8 @@
         default: null, // 事先定义好数据
       },
     }
+    , methods: {}
+    , created: {}
   }
 </script>
 
