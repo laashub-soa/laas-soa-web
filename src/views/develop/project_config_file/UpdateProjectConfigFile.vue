@@ -1,23 +1,23 @@
 <template>
   <div>
-<!--    <MultipleLevelDataModel :data_model_level_pre_constraint="data_model_level_pre_constraint"></MultipleLevelDataModel>-->
+    <DataData :data_model_level_pre_constraint="data_model_level_pre_constraint"></DataData>
   </div>
 </template>
 
 <script>
-    // import MultipleLevelDataModel from '@/views/native/operate/multiple_level_data_model/MultipleLevelDataModel.vue'
+  import DataData from '@/views/native/operate/data_data/DataData.vue'
 
-    export default {
-        name: "UpdateProjectConfigFile" // 修改项目配置文件
-        , components: {
-            // MultipleLevelDataModel
-        }
-        , data() {
-            return {
-                data_model_level_pre_constraint: [{"24": [{"25": ["26"]}]}]
-            }
-        }
+  export default {
+    name: "UpdateProjectConfigFile" // 修改项目配置文件
+    , components: {
+      DataData
     }
+    , data() {
+      return {
+        data_model_level_pre_constraint: [{"24": [{"25": ["26"]}]}]
+      }
+    }
+  }
 </script>
 
 <style scoped>

@@ -31,8 +31,8 @@ const nativeRouter = {
       meta: {title: '开放数据'},
     },
     // {
-    //   path: '/native/multiple_level_data_model',
-    //   component: () => import('@/views/native/operate/multiple_level_data_model/MultipleLevelDataModel'),
+    //   path: '/native/data_data',
+    //   component: () => import('@/views/native/operate/data_data/MultipleLevelDataModel'),
     //   name: '多层数据模型',
     //   meta: {title: '多层数据模型'},
     // },
