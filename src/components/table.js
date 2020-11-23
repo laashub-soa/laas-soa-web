@@ -50,13 +50,14 @@ function render_associate_data_model(component, h, associate_data_model_key) {
       if (["pid", "id"].indexOf(associate_data_model_data_item_key) > -1) continue;
       option_label += "  " + associate_data_model_data_item[associate_data_model_data_item_key];
     }
+    console.log(associate_data_model_data_item["id"]);
     render_associate_data_model_result.push(h('Option', {
       props: {
         value: associate_data_model_data_item["id"],
       }
     }, option_label),)
   }
-  console.log(render_associate_data_model_result);
+  // console.log(render_associate_data_model_result);
   return render_associate_data_model_result;
 }
 
@@ -93,6 +94,9 @@ function editable_table_common_column(component, title, key) {
         } else if ("update" == component._data.opt_name) {
           edit_value = component._data.data[params.index][params.column.key];
         }
+        // console.log("edit_value: ");
+        // console.log(edit_value);
+        // console.log(edit_value);
         // 设置关联模型数据
         const data_model_key = params.column.key;
         if (component._data.hasOwnProperty("associate_data_model")) {
@@ -100,7 +104,7 @@ function editable_table_common_column(component, title, key) {
             const render_associate_data_model_result = render_associate_data_model(component, h, params.column.key); // 渲染关联数据模型界面
             return h('Select', {
               props: {
-                value: edit_value,
+                value: parseInt(edit_value),
                 clearable: true,
                 filterable: true,
               },
