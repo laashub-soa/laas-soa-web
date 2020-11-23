@@ -257,17 +257,29 @@
       }
       , async init_data_tree() { // 初始化数据树
         if (!this._data.is_have_delete_data_type_is_array_column) return;
-        const tree_data = [];
-        for (let data_struct_item of this._data.data_struct) {
-          let data_type = data_struct_item["data_type"];
-          if (data_type == "string") continue;
-          if (data_type = "list_string") {
-            for (let data_item of this._data.data) {
 
+        const tree_data_obj = {};
+        for (let data_item of this._data.data) { // 列表数据 // 从表格数据中抽取数据
+          for (let data_struct_item of this._data.data_struct) { // 数据结构
+            let data_type = data_struct_item["data_type"];
+            if (data_type == "string") continue;
+            if (data_type = "list_string") { // 数组字符串
+              const code = data_struct_item["code"];
+              if (Object.keys(tree_data_obj).indexOf(code) < 0) {
+                tree_data_obj[code] = [];
+              }
+              const value = data_item[code];
+              if (tree_data_obj[code].indexOf(value) < 0) {  // 去掉重复数据
+                // 按照类型的规则切割字符串为数组
+                const value_array = value.split(",");
+                tree_data_obj[code].push(value_array);
+              }
             }
-
           }
         }
+        console.log("tree_data_obj");
+        console.log(tree_data_obj);
+        // 转换数组为树节点数据数组
       }
     },
     async created() {
