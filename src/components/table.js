@@ -52,9 +52,11 @@ function editable_table_common_column(component, title, key) {
             edit_value = "string";
           } else {
             // 填充模型设置时设置的默认值
-            const default_value = component._data.default_values[params.column.key];
-            if (default_value) {
-              edit_value = default_value;
+            if (Object.keys(component._data.default_values).indexOf(params.column.key) > -1) {
+              const default_value = component._data.default_values[params.column.key];
+              if (default_value) {
+                edit_value = default_value;
+              }
             }
           }
         } else if ("update" == component._data.opt_name) {
@@ -336,9 +338,11 @@ function init_insert_(component) {
     if (key == "data_type") {
       default_value = "string"
     } else {
-      const data_struct_default_value = component._data.default_values[key];
-      if (data_struct_default_value) {
-        default_value = data_struct_default_value;
+      if (Object.keys(component._data.default_values).indexOf(key) > -1) {
+        const data_struct_default_value = component._data.default_values[key];
+        if (data_struct_default_value) {
+          default_value = data_struct_default_value;
+        }
       }
     }
     temp_data_one[key] = default_value;

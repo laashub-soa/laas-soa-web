@@ -137,7 +137,7 @@
               continue;
             }
             // 剔除data_type不为string的列
-            if (data_struct["data_type"] != "string") {
+            if (["list_string", "path_string"].indexOf(data_struct["data_type"]) > -1) {
               this._data.is_have_delete_data_type_is_array_column = true;
               continue;
             }
@@ -169,6 +169,11 @@
             this._data.data_tree_area_percent += 12;
             this._data.data_data_area_percent -= 12;
           }
+          // console.log("data_tree_area_percent: ");
+          // console.log(this._data.data_tree_area_percent);
+          // console.log("data_data_area_percent: ");
+          // console.log(this._data.data_data_area_percent);
+
           this.$Message.success('query data data columns success');
         } catch (e) {
           console.log(e);
@@ -267,23 +272,27 @@
           for (let data_struct_item of this._data.data_struct) { // 数据结构
             let data_type = data_struct_item["data_type"];
             if (data_type == "string") continue;
+            const code = data_struct_item["code"];
+            if (Object.keys(tree_data_obj).indexOf(code) < 0) {
+              tree_data_obj[code] = [];
+            }
+            if (tree_data_obj[code].indexOf(value) > -1) {// 去掉重复数据
+              continue;
+            }
+            const value = data_item[code];
             if (data_type = "list_string") { // 数组字符串
-              const code = data_struct_item["code"];
-              if (Object.keys(tree_data_obj).indexOf(code) < 0) {
-                tree_data_obj[code] = [];
+              // 按照类型的规则切割字符串为数组
+              const value_array = value.split(",");
+              for (let value_array_item of value_array) {
+                tree_data_obj[code].push({
+                  "id": tree_data_obj[code].length,
+                  "pid": -1,
+                  "name": value_array_item
+                });
               }
-              const value = data_item[code];
-              if (tree_data_obj[code].indexOf(value) < 0) {  // 去掉重复数据
-                // 按照类型的规则切割字符串为数组
-                const value_array = value.split(",");
-                for (let value_array_item of value_array) {
-                  tree_data_obj[code].push({
-                    "id": tree_data_obj[code].length,
-                    "pid": -1,
-                    "name": value_array_item
-                  });
-                }
-              }
+            } else if (data_type = "path_string") { // 路径字符串
+              // const value_array = value.split("/");
+
             }
           }
         }
