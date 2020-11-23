@@ -291,7 +291,7 @@
                 });
               }
             } else if (data_type = "path_string") { // 路径字符串
-              // const value_array = value.split("/");
+              const value_array = value.split("/");
 
             }
           }
