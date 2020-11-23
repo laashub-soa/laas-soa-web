@@ -210,7 +210,6 @@
       async init_tree() {
         try {
           let original_tree_list = this.data_tree;
-          debugger
           if (!original_tree_list || original_tree_list.length < 1) {
             original_tree_list = await directory.select_(this.service_type, {"is_open_data": this.is_open_data});
           }

@@ -287,8 +287,8 @@
             }
           }
         }
-        console.log("tree_data_obj: ");
-        console.log(tree_data_obj);
+        // console.log("tree_data_obj: ");
+        // console.log(tree_data_obj);
         this._data.data_tree = tree_data_obj;
       }
     },
