@@ -185,6 +185,7 @@
           for (const item of data_struct_list) {
             const code = item["code"];
             const meaning = item["meaning"];
+            this._data.default_values[code] = item["default_value"];
             this._data.column_keys.push(code);
             this._data.columns.push(component_table.editable_table_common_column(this, meaning, code, column_width));
             this._data.search.template.push({"label": meaning, "prop": code, "v_model": ""});

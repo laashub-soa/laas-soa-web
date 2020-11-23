@@ -5,7 +5,7 @@ import Layout from '@/layout'
 const developRouter = {
   path: '/develop',
   component: Layout,
-  redirect: '/develop/project',
+  redirect: '/develop/project_config',
   name: '研发领域',
   meta: {
     title: '研发领域',
@@ -13,10 +13,25 @@ const developRouter = {
   },
   children: [
     {
-      path: '/develop/project',
-      name: '项目',
-      component: () => import('@/views/develop/Project'),
-      meta: {title: '项目'}
+      path: '/develop/project_config',
+      name: '项目配置',
+      redirect: '/develop/project_config/config_project'
+      ,component: () => import('@/views/develop/index'),
+      meta: {title: '项目配置'}
+      , children: [
+        {
+          path: '/develop/project_config/config_project',
+          name: '配置项目',
+          component: () => import('@/views/develop/project_config/ConfigProject.vue'),
+          meta: {title: '配置项目'}
+        }
+        , {
+          path: '/develop/project_config/config_project_env',
+          name: '配置项目环境',
+          component: () => import('@/views/develop/project_config/ConfigProjectEnv.vue'),
+          meta: {title: '配置项目环境'}
+        }
+      ]
     },
     {
       path: '/develop/project_build',
