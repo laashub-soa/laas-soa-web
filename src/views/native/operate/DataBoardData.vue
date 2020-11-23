@@ -126,6 +126,9 @@
     },
     data() {
       return {
+        data_model_struct: [], // 数据模型结构
+        associate_data_model: {}, // 关联数据模型
+        associate_data_model_data: {}, // 关联数据模型数据
         column_keys: [],
         columns: [],
         data: [],
@@ -174,10 +177,19 @@
         this._data.loading = true;
         try {
           const data_struct_list = await designer_data_struct.select_({'did': this.directory_id});
+          this._data.data_model_struct = data_struct_list;
           if (data_struct_list < 1) {
             this._data.loading = false;
             return;
           }
+          // 关联数据模型
+          for (let data_struct of data_struct_list) {
+            const reference_type = data_struct["reference_type"];
+            if (reference_type && reference_type.trim() != "") {
+              this._data.associate_data_model[data_struct["code"]] = reference_type;
+            }
+          }
+          await this.select_2_load_associate_data_model();
           // id
           if (this.is_display_id_column) {
             this._data.column_keys.push('id');
@@ -465,11 +477,30 @@ data_event:1(1):insert:(time)
       async onClickEngineDataLogicDetailStatusTree(params) {
         await this.select_engine_data_logic_trigger_status_details_log(this, params.tree_level_type, params.tree_level_data);
       },
+      async select_2_load_associate_data_model() { // 查询以加载关联数据模型
+        // 解析模型和模型属性, 暂时默认为只是id, 值例如: 1, 其他值可为 1(1)
+        for (let associate_data_model_key in this._data.associate_data_model) {
+          const associate_data_model_id = this._data.associate_data_model[associate_data_model_key];
+          // 查询模型数据
+          const request_data = {
+            page_current: 1,
+            page_size: 999,
+            search: {'did': associate_data_model_id},
+          };
+          const resp_data = await designer_data_data.select_(request_data);
+          const associate_data_model_data = resp_data['data'];
+          // console.log(associate_data_model_data);
+          this._data.associate_data_model_data[associate_data_model_key] = associate_data_model_data;
+        }
+        // console.log("associate_data_model_data: ");
+        // console.log(this._data.associate_data_model_data);
+      }
     },
     async created() {
       // await this.init_associate();
       await this.init_table_column();
       await this.init_table();
+
     }
   }
   // TODO bug: data operation need more check, there can be only operation at a time

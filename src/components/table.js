@@ -33,6 +33,33 @@ function calculate_table_column_width(is_in_designer, component, column_number) 
   return (right_window_width - editable_table_common_operation_column_width - table_column_operation_status_width_temp - nav_area_width) / column_number;
 }
 
+/**
+ * 渲染关联数据模型
+ */
+function render_associate_data_model(component, h, associate_data_model_key) {
+  const render_associate_data_model_result = [];
+  if (!component._data.hasOwnProperty("associate_data_model_data")) return;
+  const associate_data_model_data = component._data.associate_data_model_data[associate_data_model_key];
+  for (let associate_data_model_data_item of associate_data_model_data) {
+    let option_label = "";
+    if (associate_data_model_data_item.hasOwnProperty("pid")) {
+      option_label += associate_data_model_data_item["pid"];
+    }
+    option_label += "  " + associate_data_model_data_item["id"];
+    for (let associate_data_model_data_item_key in associate_data_model_data_item) {
+      if (["pid", "id"].indexOf(associate_data_model_data_item_key) > -1) continue;
+      option_label += "  " + associate_data_model_data_item[associate_data_model_data_item_key];
+    }
+    render_associate_data_model_result.push(h('Option', {
+      props: {
+        value: associate_data_model_data_item["id"],
+      }
+    }, option_label),)
+  }
+  console.log(render_associate_data_model_result);
+  return render_associate_data_model_result;
+}
+
 function editable_table_common_column(component, title, key) {
   return {
     title: title,
@@ -45,7 +72,9 @@ function editable_table_common_column(component, title, key) {
     resizable: true,
     render: function (h, params) {
       // is in edit status
-      if (component._data.is_in_opt && component._data.opt_line == params.index) {
+      if (component._data.is_in_opt && component._data.opt_line == params.index) { // 编辑者模式
+
+        // 设置默认值
         let edit_value = "";
         if ("insert" == component._data.opt_name) {
           if (params.column.key == "data_type") {
@@ -64,6 +93,26 @@ function editable_table_common_column(component, title, key) {
         } else if ("update" == component._data.opt_name) {
           edit_value = component._data.data[params.index][params.column.key];
         }
+        // 设置关联模型数据
+        const data_model_key = params.column.key;
+        if (component._data.hasOwnProperty("associate_data_model")) {
+          if (component._data.associate_data_model.hasOwnProperty(data_model_key)) {
+            const render_associate_data_model_result = render_associate_data_model(component, h, params.column.key); // 渲染关联数据模型界面
+            return h('Select', {
+              props: {
+                value: edit_value,
+                clearable: true,
+                filterable: true,
+              },
+              on: {
+                'on-change': (value) => {
+                  component._data.data[params.index][params.column.key] = value;
+                }
+              },
+            }, render_associate_data_model_result);
+          }
+        }
+
         return h('Input', {
           props: {
             type: 'text',
@@ -324,7 +373,7 @@ function table_column_operation_status(component) {
 function init_insert_(component) {
   // can not continuous multiple times add/update
   if (component._data.is_in_opt) {
-    component.$Message.error("can not continuous multiple times add/update");
+    component.$Message.error("不能连续新增或者修改");
     return;
   }
   component._data.is_in_opt = true;
