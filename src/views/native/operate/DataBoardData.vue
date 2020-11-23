@@ -115,6 +115,10 @@
         default: false,
         type: Boolean,
       },
+      is_display_id_column: {
+        default: true,
+        type: Boolean,
+      },
     },
     components: {
       DirectoryDescription,
@@ -174,20 +178,21 @@
             this._data.loading = false;
             return;
           }
-          const column_width = component_table.calculate_table_column_width(false, this, data_struct_list.length + 1);
           // id
-          this._data.column_keys.push('id');
-          this._data.columns.push({
-            title: 'id',
-            key: 'id'
-          });
+          if (this.is_display_id_column) {
+            this._data.column_keys.push('id');
+            this._data.columns.push({
+              title: 'id',
+              key: 'id'
+            });
+          }
           // basic column
           for (const item of data_struct_list) {
             const code = item["code"];
             const meaning = item["meaning"];
             this._data.default_values[code] = item["default_value"];
             this._data.column_keys.push(code);
-            this._data.columns.push(component_table.editable_table_common_column(this, meaning, code, column_width));
+            this._data.columns.push(component_table.editable_table_common_column(this, meaning, code));
             this._data.search.template.push({"label": meaning, "prop": code, "v_model": ""});
           }
           // operation column

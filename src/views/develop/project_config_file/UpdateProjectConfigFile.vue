@@ -4,16 +4,29 @@
     <!--父项目-项目-->
     <!--环境-->
     <!--路径-->
+    <DataBoardData
+      :directory_id="directory_id"
+      :directory_name="directory_name" :split_value="split"
+      :is_display_id_column="is_display_id_column"
+    ></DataBoardData>
   </div>
 </template>
 
 <script>
+  import DataBoardData from "@/views/native/operate/DataBoardData";
 
   export default {
     name: "UpdateProjectConfigFile" // 修改项目配置文件
-    , components: {}
-    , data() {
-      return {}
+    , components: {
+      DataBoardData,
+    },
+    data() {
+      return {
+        directory_id: 26,
+        directory_name: '',
+        split: 0.2,
+        is_display_id_column: false,
+      }
     }
   }
 </script>
