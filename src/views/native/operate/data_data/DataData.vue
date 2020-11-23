@@ -27,7 +27,10 @@
     <!--数据区域-->
     <row>
       <i-col :span="data_tree_area_percent" v-if="data_tree_area_percent!='0'"><!--数据树-->
-        数据树
+        <!--列表, 暂略-->
+        <Directory v-for="value in data_tree" :data_tree="value"
+                   :is_data_tree="directory_is_data_tree" :is_databoard="directory_is_data_board"
+        ></Directory>
       </i-col>
       <i-col :span="data_data_area_percent" v-if="data_data_area_percent!='0'">
         <i-table
@@ -51,7 +54,8 @@
 </template>
 
 <script>
-  import {Tree, VueTreeList} from 'vue-tree-list'
+  import {VueTreeList} from 'vue-tree-list'
+  import Directory from "@/components/directory/Directory.vue";
   import DirectoryDescription from "@/components/directory/DirectoryDescription";
   import designer_data_struct from "@/views/native/designer/designer_data/designer_data_struct/designer_data_struct";
   import designer_data_data from "@/views/native/operate/data_board_data";
@@ -75,6 +79,7 @@
     components: {
       DirectoryDescription,
       VueTreeList,
+      Directory,
     },
     data() {
       return {
@@ -87,12 +92,12 @@
         columns: [],
         default_values: {},
         data: [],
-        data_status: [],
-        data_status_details_tree: new Tree([]),
-        data_status_details: {
-          display: false,
-          log_list: [],
-        },
+        // data_status: [],
+        // data_status_details_tree: new Tree([]),
+        // data_status_details: {
+        //   display: false,
+        //   log_list: [],
+        // },
         data_line_backup: {},
         loading: false,
         is_in_opt: false,
@@ -108,10 +113,9 @@
           data: {},
           template: [],
         }
-        , data_tree: {
-          keys: [],
-          values: [],
-        }
+        , data_tree: {}
+        , directory_is_data_tree: true
+        , directory_is_data_board: true
       }
     },
     methods: {
@@ -272,14 +276,20 @@
               if (tree_data_obj[code].indexOf(value) < 0) {  // 去掉重复数据
                 // 按照类型的规则切割字符串为数组
                 const value_array = value.split(",");
-                tree_data_obj[code].push(value_array);
+                for (let value_array_item of value_array) {
+                  tree_data_obj[code].push({
+                    "id": tree_data_obj[code].length,
+                    "pid": -1,
+                    "name": value_array_item
+                  });
+                }
               }
             }
           }
         }
-        console.log("tree_data_obj");
+        console.log("tree_data_obj: ");
         console.log(tree_data_obj);
-        // 转换数组为树节点数据数组
+        this._data.data_tree = tree_data_obj;
       }
     },
     async created() {

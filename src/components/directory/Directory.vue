@@ -1,8 +1,11 @@
 <template>
   <div>
-    <Button @click="init_tree" icon="ios-refresh">刷新</Button>
-    <Button v-if="!is_databoard" @click="onAddNode(null)" icon="md-add">添加</Button>
-    <hr/>
+    <div v-if="!is_data_tree">
+      <Button @click="init_tree" icon="ios-refresh">刷新</Button>
+      <Button v-if="!is_databoard" @click="onAddNode(null)" icon="md-add">添加</Button>
+      <hr/>
+    </div>
+
     <vue-tree-list
       @click="onClick"
       @change-name="onChangeName"
@@ -25,192 +28,208 @@
 </template>
 
 <script>
-    import {Tree, TreeNode, VueTreeList} from 'vue-tree-list'
-    import directory from './directory.js'
+  import {Tree, TreeNode, VueTreeList} from 'vue-tree-list'
+  import directory from './directory.js'
 
-    export default {
-        name: "Directory",
-        props: {
-            "is_databoard": {
-                type: Boolean,
-                default: false,
-                required: false,
+  export default {
+    name: "Directory",
+    props: {
+      "is_databoard": {
+        type: Boolean,
+        default: false,
+        required: false,
+      },
+      "service_type": {
+        type: String,
+        default: "data",
+      },
+      "del-directory": Function,
+      "change-directory": Function,
+      "add-directory": Function,
+      "drop-directory": Function,
+      "click-directory": Function,
+      "is_open_data": {
+        type: Boolean,
+        default: false,
+      },
+      "data_tree": {
+        type: Array,
+        default: null,
+      },
+      "is_data_tree": {
+        type: Boolean,
+        default: false,
+      },
+    },
+    components: {
+      VueTreeList
+    },
+    data() {
+      return {
+        tree: new Tree([]),
+        name: "",
+        newTree: {},
+      }
+    },
+    methods: {
+      async onDel(node) {
+        // delete need to confirm
+        const component = this;
+        if (!await new Promise(function (resolve, reject) {
+          component.$Modal.warning({
+            title: "tips",
+            content: "are you ready to delete?",
+            okText: "YES",
+            onOk: function () {
+              resolve(true);
             },
-            "service_type": {
-                type: String,
-                default: "data",
+            closable: true,
+            onCancel: function () {
+              resolve(false);
             },
-            "del-directory": Function,
-            "change-directory": Function,
-            "add-directory": Function,
-            "drop-directory": Function,
-            "click-directory": Function,
-            "is_open_data": {
-                type: Boolean,
-                default: false,
+            cancelText: "NO"
+          });
+        })) return;
+        // save
+        try {
+          const insert_result = await directory.delete_(this.service_type, {
+            "id": node["id"],
+          });
+          this.$Message.success('delete directory success');
+        } catch (e) {
+          console.log(e);
+          this.$Message.error(e.response.data);
+        }
+        node.remove();
+        this.$emit('del-directory', this.service_type, node);
+      },
+
+      async onChangeName(params) {
+        // if ('blur' != params["eventType"]) return;
+        const input_name_result = params["newName"];
+        if ("" == input_name_result) {
+          this.$Message.error("name can't be blank character");
+          return;
+        }
+        // save
+        try {
+          const insert_result = await directory.update_(this.service_type, {
+            "id": params["id"],
+            "name": input_name_result,
+          });
+          this.$Message.success('update directory name success');
+          this.$emit('change-directory', this.service_type, params);
+        } catch (e) {
+          console.log(e);
+          this.$Message.error(e.response.data);
+        }
+
+      },
+
+      async onAddNode(params) {
+        // make sure input data directory name
+        const component = this;
+        component._data.name = "";
+        const input_name_result = await new Promise(function (resolve, reject) {
+          component.$Modal.confirm({
+            onOk: () => {
+              resolve(component._data.name);
             },
-        },
-        components: {
-            VueTreeList
-        },
-        data() {
-            return {
-                tree: new Tree([]),
-                name: "",
-                newTree: {},
+            onCancel: () => {
+              component._data.name = "";
+              resolve(component._data.name);
+            },
+            render: (h) => {
+              // TODO improvement: input box can autofocus
+              return h('Input', {
+                props: {
+                  autofocus: true,
+                  placeholder: 'Please enter directory name(a-z0-9_)...',
+                },
+                on: {
+                  input: (val) => {
+                    component._data.name = val;
+                  }
+                }
+              })
             }
-        },
-        methods: {
-            async onDel(node) {
-                // delete need to confirm
-                const component = this;
-                if (!await new Promise(function (resolve, reject) {
-                    component.$Modal.warning({
-                        title: "tips",
-                        content: "are you ready to delete?",
-                        okText: "YES",
-                        onOk: function () {
-                            resolve(true);
-                        },
-                        closable: true,
-                        onCancel: function () {
-                            resolve(false);
-                        },
-                        cancelText: "NO"
-                    });
-                })) return;
-                // save
-                try {
-                    const insert_result = await directory.delete_(this.service_type, {
-                        "id": node["id"],
-                    });
-                    this.$Message.success('delete directory success');
-                } catch (e) {
-                    console.log(e);
-                    this.$Message.error(e.response.data);
-                }
-                node.remove();
-                this.$emit('del-directory', this.service_type, node);
-            },
-
-            async onChangeName(params) {
-                // if ('blur' != params["eventType"]) return;
-                const input_name_result = params["newName"];
-                if ("" == input_name_result) {
-                    this.$Message.error("name can't be blank character");
-                    return;
-                }
-                // save
-                try {
-                    const insert_result = await directory.update_(this.service_type, {
-                        "id": params["id"],
-                        "name": input_name_result,
-                    });
-                    this.$Message.success('update directory name success');
-                    this.$emit('change-directory', this.service_type, params);
-                } catch (e) {
-                    console.log(e);
-                    this.$Message.error(e.response.data);
-                }
-
-            },
-
-            async onAddNode(params) {
-                // make sure input data directory name
-                const component = this;
-                component._data.name = "";
-                const input_name_result = await new Promise(function (resolve, reject) {
-                    component.$Modal.confirm({
-                        onOk: () => {
-                            resolve(component._data.name);
-                        },
-                        onCancel: () => {
-                            component._data.name = "";
-                            resolve(component._data.name);
-                        },
-                        render: (h) => {
-                            // TODO improvement: input box can autofocus
-                            return h('Input', {
-                                props: {
-                                    autofocus: true,
-                                    placeholder: 'Please enter directory name(a-z0-9_)...',
-                                },
-                                on: {
-                                    input: (val) => {
-                                        component._data.name = val;
-                                    }
-                                }
-                            })
-                        }
-                    })
-                });
-                if ("" == input_name_result) return;
-                let pid = -1;
-                // special for top level tree node
-                if (params) {
-                    pid = params["pid"];
-                    params["addLeafNodeDisabled"] = true;
-                    params["name"] = input_name_result;
-                }
-                // save
-                try {
-                    const insert_result = await directory.insert_(this.service_type, {
-                        "pid": pid,
-                        "name": input_name_result,
-                    });
-                    if (!params) {
-                        params = {
-                            id: insert_result,
-                            name: input_name_result,
-                            pid: pid,
-                            isLeaf: false,
-                            addLeafNodeDisabled: true,
-                            children: []
-                        };
-                        this._data.tree.addChildren(new TreeNode(params));
-                    } else {
-                        params["id"] = insert_result;
-                    }
-                    this.$Message.success('insert directory success');
-                    this.$emit('add-directory', this.service_type, params);
-                } catch (e) {
-                    console.log(e);
-                    this.$Message.error(e.response.data);
-                }
-            },
-            async onDrop(params) {
-                // save
-                try {
-                    if (params["node"]["id"] == params["target"]["id"]) return;
-                    const insert_result = await directory.update_(this.service_type, {
-                        "id": params["node"]["id"],
-                        "pid": params["target"]["id"],
-                    });
-                    this.$Message.success('update directory name success');
-                    this.$emit('drop-directory', this.service_type, params);
-                } catch (e) {
-                    console.log(e);
-                    this.$Message.error(e.response.data);
-                }
-            },
-            onClick(params) {
-                this.$emit('click-directory', this.service_type, params);
-            },
-            async init_tree() {
-                try {
-                    this._data.tree = new Tree(await directory.select_tree(this.service_type, {"is_open_data": this.is_open_data}));
-                    this.$Message.success('select directory success');
-                } catch (e) {
-                    console.log(e);
-                    this.$Message.error(e.response.data);
-                }
-            },
-        },
-        async created() {
-            await this.init_tree();
-        },
-    }
-    // TODO improvement: support version and fork operation for every data
+          })
+        });
+        if ("" == input_name_result) return;
+        let pid = -1;
+        // special for top level tree node
+        if (params) {
+          pid = params["pid"];
+          params["addLeafNodeDisabled"] = true;
+          params["name"] = input_name_result;
+        }
+        // save
+        try {
+          const insert_result = await directory.insert_(this.service_type, {
+            "pid": pid,
+            "name": input_name_result,
+          });
+          if (!params) {
+            params = {
+              id: insert_result,
+              name: input_name_result,
+              pid: pid,
+              isLeaf: false,
+              addLeafNodeDisabled: true,
+              children: []
+            };
+            this._data.tree.addChildren(new TreeNode(params));
+          } else {
+            params["id"] = insert_result;
+          }
+          this.$Message.success('insert directory success');
+          this.$emit('add-directory', this.service_type, params);
+        } catch (e) {
+          console.log(e);
+          this.$Message.error(e.response.data);
+        }
+      },
+      async onDrop(params) {
+        // save
+        try {
+          if (params["node"]["id"] == params["target"]["id"]) return;
+          const insert_result = await directory.update_(this.service_type, {
+            "id": params["node"]["id"],
+            "pid": params["target"]["id"],
+          });
+          this.$Message.success('update directory name success');
+          this.$emit('drop-directory', this.service_type, params);
+        } catch (e) {
+          console.log(e);
+          this.$Message.error(e.response.data);
+        }
+      },
+      onClick(params) {
+        this.$emit('click-directory', this.service_type, params);
+      },
+      async init_tree() {
+        try {
+          let original_tree_list = this.data_tree;
+          debugger
+          if (!original_tree_list || original_tree_list.length < 1) {
+            original_tree_list = await directory.select_(this.service_type, {"is_open_data": this.is_open_data});
+          }
+          // console.log("original_tree_list: ");
+          // console.log(original_tree_list);
+          const tree_data = await directory.setup_tree(original_tree_list);
+          this._data.tree = new Tree(tree_data);
+          this.$Message.success('select directory success');
+        } catch (e) {
+          console.log(e);
+          this.$Message.error(e.response.data);
+        }
+      },
+    },
+    async created() {
+      await this.init_tree();
+    },
+  }
+  // TODO improvement: support version and fork operation for every data
 </script>
 
 

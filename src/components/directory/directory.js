@@ -115,12 +115,13 @@ function setup_page_menu_tree(index_menu_data, index_data) {
   return page_menu_tree;
 }
 
-async function select_tree(service_type, request_data) {
-  service_type = reset_service_type(service_type)
-  let net_request_result = await axios.post(base_path + service_type + "/directory/select", request_data);
-  if (!net_request_result || !net_request_result.status || net_request_result.status != 200 || !net_request_result.data) return;
+/**
+ * 建立树
+ * @param original_tree_list
+ * @returns {Promise<Array>}
+ */
+async function setup_tree(original_tree_list) {
   // 生成索引数据树
-  const original_tree_list = net_request_result.data;
   // console.log("original_tree_list: ");
   // console.log(original_tree_list);
   const index_menu_tree = setup_index_menu_tree(original_tree_list);
@@ -137,14 +138,6 @@ async function select_tree(service_type, request_data) {
   // console.log("page_menu_tree: ");
   // console.log(page_menu_tree);
   return page_menu_tree;
-}
-
-/**
- * 查询数据模型
- * @returns {Promise<void>}
- */
-async function select_data_model_level() {
-  // await select_("data",{"is_"})
 }
 
 
@@ -170,8 +163,8 @@ async function delete_(service_type, data_directory) {
 }
 
 export default {
-  select_tree,
   select_,
+  setup_tree,
   insert_,
   update_,
   delete_,
