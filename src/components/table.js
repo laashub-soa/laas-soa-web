@@ -59,7 +59,7 @@ function editable_table_common_column(component, title, key) {
     key: key,
     sortable: true,
     // fixed: 'left',
-    align: 'center',
+    align: 'align',
     titleHtml: ' <i class="ivu-icon ivu-icon-edit"></i>',
     editable: true,
     resizable: true,
@@ -109,10 +109,16 @@ function editable_table_common_column(component, title, key) {
           }
         }
 
+        let input_textarea_rows = 10;
+        const edit_value_lines = edit_value.split().length;
+        if (edit_value_lines > input_textarea_rows) {
+          input_textarea_rows = edit_value_lines;
+        }
         return h('Input', {
           props: {
-            type: 'text',
-            value: edit_value
+            type: 'textarea',
+            value: edit_value,
+            rows: input_textarea_rows,
           },
           on: {
             'on-change'(event) {
@@ -132,9 +138,15 @@ function editable_table_common_column(component, title, key) {
           }
         }
       }
-      return h('div', {
+      console.log(table_column_text);
+      return h('pre', {
+        style: {
+          'white-space': 'pre-wrap',
+          // 'word-wrap': 'break-word',
+        },
         domProps: {
           innerHTML: table_column_text,
+          // title: table_column_text
         },
       })
     }

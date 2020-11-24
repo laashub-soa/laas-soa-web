@@ -512,7 +512,7 @@ data_event:1(1):insert:(time)
               if (["pid", "id"].indexOf(associate_data_model_data_item_key) > -1) continue;
               option_label += "  " + associate_data_model_data_item[associate_data_model_data_item_key];
             }
-            console.log(associate_data_model_data_item["id"]);
+            // console.log(associate_data_model_data_item["id"]);
             result.push({
               "value": associate_data_model_data_item["id"],
               "label": option_label,
