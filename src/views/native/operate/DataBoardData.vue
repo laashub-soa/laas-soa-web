@@ -216,7 +216,7 @@
             const data_type = item["data_type"];
             this._data.default_values[code] = item["default_value"];
             this._data.column_keys.push(code);
-            this._data.columns.push(component_table.editable_table_common_column(this, meaning, code,data_type));
+            this._data.columns.push(component_table.editable_table_common_column(this, meaning, code, data_type));
             this._data.search.template.push({"label": meaning, "prop": code, "v_model": ""});
           }
           // operation column
@@ -231,6 +231,7 @@
         this._data.loading = false;
       },
       async init_table() {
+        //沿用搜索条件
         await component_table.cancel_opt_data(this);
         this._data.loading = true;
         try {
@@ -263,6 +264,7 @@
             if (!v_model || v_model == '') continue;
             request_data.search[prop] = v_model;
           }
+          this.set_inherit_search_criteria(request_data.search);
           request_data["is_open_data"] = this.is_open_data;
           const resp_data = await designer_data_data.select_(request_data);
           this._data.page.total = resp_data['page_total'];
@@ -524,10 +526,25 @@ data_event:1(1):insert:(time)
         // console.log("associate_data_model_data: ");
         // console.log(this._data.associate_data_model_data);
       }
+      , set_inherit_search_criteria(search_condition) { //存储沿用搜索条件
+        localStorage.setItem("inherit_search_criteria_" + this.directory_id, JSON.stringify(search_condition));
+      }
+      , get_inherit_search_criteria() { // 取出沿用搜索条件设置到搜索表单
+        const inherit_search_criteria_str = localStorage.getItem("inherit_search_criteria_" + this.directory_id);
+        if (inherit_search_criteria_str) {
+          const inherit_search_criteria = JSON.parse(inherit_search_criteria_str);
+
+          for (const index in this._data.search.template) {
+            const key = this._data.search.template[index]["prop"];
+            this._data.search.template[index]["v_model"] = inherit_search_criteria[key];
+          }
+        }
+      }
     },
     async created() {
       // await this.init_associate();
       await this.init_table_column();
+      this.get_inherit_search_criteria();
       await this.init_table();
       this._data.search.expand_status = this.is_display_search_area;
     }
