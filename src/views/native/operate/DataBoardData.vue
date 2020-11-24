@@ -10,7 +10,7 @@
     <divider orientation="left" style="font-size: 12px;">
       <i-button
         @click="function(){search.expand_status=!search.expand_status;}">
-        EXPAND/COLLAPSE SEARCH CONDITION AREA
+        展开/收起 搜索区域
       </i-button>
     </divider>
     <div v-if="search.expand_status" style="margin-left: 10px">
@@ -20,7 +20,14 @@
         <row>
           <i-col span="6" v-for="item in search.template">
             <form-item :label="item.label" :prop="item.prop">
-              <i-input v-model="item.v_model"></i-input>
+              <i-input v-model="item.v_model" v-if="!associate_data_model[item.prop]"></i-input>
+              <i-select v-model="item.v_model" v-if="associate_data_model[item.prop]">
+                <!-- :key="associate_data_model_data.value" -->
+                <i-option v-for="associate_data_model_data_item of associate_data_model_data[item.prop]"
+                          :value="associate_data_model_data_item.value"
+                >{{ associate_data_model_data_item.label }}
+                </i-option>
+              </i-select>
             </form-item>
           </i-col>
         </row>
@@ -150,7 +157,7 @@
           page_size: 10
         },
         search: {
-          expand_status: false,
+          expand_status: true, //TODO fix up
           data: {},
           template: [],
         },
@@ -490,7 +497,24 @@ data_event:1(1):insert:(time)
           const resp_data = await designer_data_data.select_(request_data);
           const associate_data_model_data = resp_data['data'];
           // console.log(associate_data_model_data);
-          this._data.associate_data_model_data[associate_data_model_key] = associate_data_model_data;
+          const result = [];
+          for (let associate_data_model_data_item of associate_data_model_data) {
+            let option_label = "";
+            if (associate_data_model_data_item.hasOwnProperty("pid")) {
+              option_label += associate_data_model_data_item["pid"];
+            }
+            option_label += "  " + associate_data_model_data_item["id"];
+            for (let associate_data_model_data_item_key in associate_data_model_data_item) {
+              if (["pid", "id"].indexOf(associate_data_model_data_item_key) > -1) continue;
+              option_label += "  " + associate_data_model_data_item[associate_data_model_data_item_key];
+            }
+            console.log(associate_data_model_data_item["id"]);
+            result.push({
+              "value": associate_data_model_data_item["id"],
+              "label": option_label,
+            })
+          }
+          this._data.associate_data_model_data[associate_data_model_key] = result;
         }
         // console.log("associate_data_model_data: ");
         // console.log(this._data.associate_data_model_data);

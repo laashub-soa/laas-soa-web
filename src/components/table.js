@@ -41,22 +41,14 @@ function render_associate_data_model(component, h, associate_data_model_key) {
   if (!component._data.hasOwnProperty("associate_data_model_data")) return;
   const associate_data_model_data = component._data.associate_data_model_data[associate_data_model_key];
   for (let associate_data_model_data_item of associate_data_model_data) {
-    let option_label = "";
-    if (associate_data_model_data_item.hasOwnProperty("pid")) {
-      option_label += associate_data_model_data_item["pid"];
-    }
-    option_label += "  " + associate_data_model_data_item["id"];
-    for (let associate_data_model_data_item_key in associate_data_model_data_item) {
-      if (["pid", "id"].indexOf(associate_data_model_data_item_key) > -1) continue;
-      option_label += "  " + associate_data_model_data_item[associate_data_model_data_item_key];
-    }
-    console.log(associate_data_model_data_item["id"]);
     render_associate_data_model_result.push(h('Option', {
       props: {
-        value: associate_data_model_data_item["id"],
+        value: associate_data_model_data_item["value"],
       }
-    }, option_label),)
+    }, associate_data_model_data_item["label"]),)
   }
+
+
   // console.log(render_associate_data_model_result);
   return render_associate_data_model_result;
 }
@@ -412,7 +404,6 @@ function init_insert_(component) {
 // TODO improvement: memory table column width for open again
 // TODO improvement: lock button on table column, click it can make the column fix to left
 export default {
-  table_column_operation_status,
   editable_table_common_operation_column,
   editable_table_common_column,
   table_column_is_open_data,
