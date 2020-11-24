@@ -21,7 +21,7 @@
           <i-col span="6" v-for="item in search.template">
             <form-item :label="item.label" :prop="item.prop">
               <i-input v-model="item.v_model" v-if="!associate_data_model[item.prop]"></i-input>
-              <i-select v-model="item.v_model" v-if="associate_data_model[item.prop]">
+              <i-select v-model="item.v_model" v-if="associate_data_model[item.prop]" clearable filterable>
                 <!-- :key="associate_data_model_data.value" -->
                 <i-option v-for="associate_data_model_data_item of associate_data_model_data[item.prop]"
                           :value="associate_data_model_data_item.value"
@@ -124,6 +124,10 @@
       },
       is_display_id_column: {
         default: true,
+        type: Boolean,
+      },
+      is_display_search_area: {
+        default: false,
         type: Boolean,
       },
     },
@@ -524,7 +528,7 @@ data_event:1(1):insert:(time)
       // await this.init_associate();
       await this.init_table_column();
       await this.init_table();
-
+      this._data.search.expand_status = this.is_display_search_area;
     }
   }
   // TODO bug: data operation need more check, there can be only operation at a time

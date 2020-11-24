@@ -8,6 +8,7 @@
       :directory_id="directory_id"
       :directory_name="directory_name" :split_value="split"
       :is_display_id_column="is_display_id_column"
+      :is_display_search_area="is_display_search_area"
     ></DataBoardData>
   </div>
 </template>
@@ -26,6 +27,7 @@
         directory_name: '',
         split: 0.2,
         is_display_id_column: false,
+        is_display_search_area: true,
       }
     }
   }
