@@ -113,18 +113,34 @@ function editable_table_common_column(component, title, key, data_type) {
         if (edit_value_lines > input_textarea_rows) {
           input_textarea_rows = edit_value_lines;
         }
-        return h('Input', {
-          props: {
-            type: 'textarea',
-            value: edit_value,
-            rows: input_textarea_rows,
-          },
-          on: {
-            'on-change'(event) {
-              component._data.data[params.index][params.column.key] = event.target.value;
+
+
+        if (data_type == "file_string") {
+          return h('Input', {
+            props: {
+              type: 'textarea',
+              value: edit_value,
+              rows: input_textarea_rows,
+            },
+            on: {
+              'on-change'(event) {
+                component._data.data[params.index][params.column.key] = event.target.value;
+              }
             }
-          }
-        })
+          })
+        } else {
+          return h('Input', {
+            props: {
+              type: 'text',
+              value: edit_value,
+            },
+            on: {
+              'on-change'(event) {
+                component._data.data[params.index][params.column.key] = event.target.value;
+              }
+            }
+          })
+        }
       }
       let table_column_text = component._data.data[params.index][params.column.key];
       if (component._data.hasOwnProperty("associate_data_model")) {
