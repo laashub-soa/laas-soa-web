@@ -64,6 +64,7 @@ function editable_table_common_column(component, title, key) {
     editable: true,
     resizable: true,
     render: function (h, params) {
+      const data_model_key = params.column.key;
       // is in edit status
       if (component._data.is_in_opt && component._data.opt_line == params.index) { // 编辑者模式
 
@@ -90,7 +91,6 @@ function editable_table_common_column(component, title, key) {
         // console.log(edit_value);
         // console.log(edit_value);
         // 设置关联模型数据
-        const data_model_key = params.column.key;
         if (component._data.hasOwnProperty("associate_data_model")) {
           if (component._data.associate_data_model.hasOwnProperty(data_model_key)) {
             const render_associate_data_model_result = render_associate_data_model(component, h, params.column.key); // 渲染关联数据模型界面
@@ -121,9 +121,20 @@ function editable_table_common_column(component, title, key) {
           }
         })
       }
+      let table_column_text = component._data.data[params.index][params.column.key];
+      if (component._data.hasOwnProperty("associate_data_model")) {
+        if (component._data.associate_data_model.hasOwnProperty(data_model_key)) {
+          for (let item of component._data.associate_data_model_data[data_model_key]) {
+            if (item["value"] == table_column_text) {
+              table_column_text = item["label"];
+              break;
+            }
+          }
+        }
+      }
       return h('div', {
         domProps: {
-          innerHTML: component._data.data[params.index][params.column.key],
+          innerHTML: table_column_text,
         },
       })
     }

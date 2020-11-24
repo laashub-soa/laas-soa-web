@@ -3,8 +3,8 @@
     <DirectoryDescription :directory_id="directory_id" :is_open_data="is_open_data"></DirectoryDescription>
     <!--    <Button @click="init_table">Refresh</Button>-->
 
-    <i-button @click="init_table">SEARCH</i-button>
-    <i-button @click="init_insert_">ADD</i-button>
+    <i-button @click="init_table">搜索</i-button>
+    <i-button @click="init_insert_">新增</i-button>
 
     <!--search area-->
     <divider orientation="left" style="font-size: 12px;">
