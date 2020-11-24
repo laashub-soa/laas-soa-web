@@ -53,7 +53,7 @@ function render_associate_data_model(component, h, associate_data_model_key) {
   return render_associate_data_model_result;
 }
 
-function editable_table_common_column(component, title, key) {
+function editable_table_common_column(component, title, key, data_type) {
   return {
     title: title,
     key: key,
@@ -67,7 +67,6 @@ function editable_table_common_column(component, title, key) {
       const data_model_key = params.column.key;
       // is in edit status
       if (component._data.is_in_opt && component._data.opt_line == params.index) { // 编辑者模式
-
         // 设置默认值
         let edit_value = "";
         if ("insert" == component._data.opt_name) {
@@ -138,15 +137,35 @@ function editable_table_common_column(component, title, key) {
           }
         }
       }
-      console.log(table_column_text);
-      return h('pre', {
-        style: {
-          'white-space': 'pre-wrap',
-          // 'word-wrap': 'break-word',
-        },
+      // console.log(table_column_text);
+
+      // 文件内容展示
+      if (data_type == "file_string") {
+        return h('div', [
+          h('Tooltip', {
+            props: {
+              placement: 'top',
+              transfer: true,
+              "max-width": 2000,
+            }
+          }, [
+            "<悬浮鼠标以展示内容>",
+            h('div', {
+              slot: 'content',
+              props: {
+                "max-width": 2000,
+              },
+              style: {
+                width: screen.width,
+                'white-space': 'pre-wrap',
+              }
+            }, table_column_text)
+          ])]);
+      }
+      // 原始展示
+      return h('div', {
         domProps: {
           innerHTML: table_column_text,
-          // title: table_column_text
         },
       })
     }
